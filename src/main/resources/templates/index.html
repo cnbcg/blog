@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="zh-CN" ng-app="app" ng-controller="IndexController">
+<head>
+    <title>首页 - Run to dream!BCG Blog</title>
+    <meta th:include="fragments/layout :: fragment-head" th:remove="tag"/>
+</head>
+<body>
+
+<div th:include="fragments/layout :: fragment-nav" th:remove="tag"></div>
+
+<div id="message" class="alert alert-danger" role="alert">用户名密码错误。</div>
+
+<div id="mainWrapper">
+    <div id="main" data-ng-view=""/>
+</div>
+
+<div th:include="fragments/layout :: fragment-js" th:remove="tag"></div>
+
+</body>
+</html>

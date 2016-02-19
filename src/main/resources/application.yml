@@ -1,0 +1,35 @@
+#----------------------------------------------------------------------
+# SYSTEM & SECURITY CONFIGURATION
+#----------------------------------------------------------------------
+
+server:
+  port: 8080
+
+spring:
+  profiles:
+    active: develop
+  datasource:
+    url: jdbc:mysql://localhost/blog
+    username: blog
+    password: blog
+    driver-class-name: com.mysql.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+  thymeleaf:
+    cache: true
+  messages:
+    basename: i18n/message
+
+logging:
+  path: /blog.log
+  level.org.springframework: info
+
+
+#----------------------------------------------------------------------
+# UI CONFIGURATION
+#----------------------------------------------------------------------
+
+ui:
+  local: en_US
+  theme: vertical

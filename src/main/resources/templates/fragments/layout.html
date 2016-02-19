@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head th:fragment="fragment-head">
+    <base href="/"/>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+    <link rel="stylesheet" th:href="@{/lib/bootstrap-3.3.5-dist/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" th:href="@{/lib/nprogress/nprogress.css}" />
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+    <link rel="stylesheet" th:href="@{/css/blog.css}"/>
+    <link rel="stylesheet" th:href="${#themes.code('css')}"/>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="/lib/html5shiv-3.7.2.min.js"></script>
+    <script src="/lib/respond-1.4.2.min.js"></script>
+    <![endif]-->
+
+</head>
+<body>
+<div th:fragment="fragment-nav">
+    <nav class="navbar navbar-inverse navbar-headbar">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-headbar" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/" th:text="#{nav.headbar.brand}">BCG BLOG</a>
+            </div>
+
+            <div class="collapse navbar-collapse" id="navbar-headbar">
+                <ul class="nav navbar-nav">
+                    <li class="{{path == '/:username/blogs' ? 'active' : ''}}"><a href="blogs" th:text="#{nav.headbar.myblog}">我的博客</a></li>
+                    <li class="{{path == '/newblog' ? 'active' : ''}}"><a href="newblog" th:text="#{nav.headbar.newblog}">写博客</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li th:class="${locale == 'zh_CN' ? 'active' : ''}" ng-click="changeUI('locale', 'zh_CN')"><a href="#">中文</a></li>
+                    <li th:class="${locale == 'en_US' ? 'active' : ''}" ng-click="changeUI('locale', 'en_US')"><a href="#">English</a></li>
+                    <li th:class="${theme == 'horizontal' ? 'active' : ''}" ng-click="changeUI('theme', 'horizontal')"><a href="#" th:text="#{nav.headbar.theme.pc}">桌面版</a></li>
+                    <li th:class="${theme == 'vertical' ? 'active' : ''}" ng-click="changeUI('theme', 'vertical')"><a href="#" th:text="#{nav.headbar.theme.mobile}">移动版</a></li>
+                    <li ng-show="!authenticationService.isAuthenticated()"><a href="login" th:text="#{nav.headbar.login}">登录</a></li>
+                    <li ng-show="authenticationService.isAuthenticated()" class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> {{authenticationService.authUser().username}} <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="profile">Profile</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a ng-click="authenticationService.logout()">Logout</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="sidebar">
+        <div class="sidebar-profile">
+            <img class="sidebar-profile-avatar" th:src="@{/images/avatar.jpg}"/>
+            <div class="sidebar-profile-name">bcg</div>
+            <div class="sidebar-profile-desc">码农一枚，身在大连，专注于高可用及大数据方向，现就职于BCG集团，担任技术总监。</div>
+        </div>
+        <div class="sidebar-menu">
+            <a class="sidebar-menu-item active" th:text="#{nav.sidebar.blog}">博客</a>
+            <a class="sidebar-menu-item" th:text="#{nav.sidebar.album}">相册</a>
+            <a class="sidebar-menu-item" th:text="#{nav.sidebar.production}">作品</a>
+            <a class="sidebar-menu-item" th:text="#{nav.sidebar.about}">关于</a>
+        </div>
+    </div>
+</div>
+
+<div th:fragment="fragment-js">
+    <script th:src="@{/lib/jquery-2.2.0.min.js}"></script>
+    <script th:src="@{/lib/nprogress/nprogress.js}"></script>
+    <script th:src="@{/lib/jquery.transit.min.js}"></script>
+    <script th:src="@{/lib/bootstrap-3.3.5-dist/js/bootstrap.min.js}"></script>
+    <script th:src="@{/lib/angular.js/1.4.8/angular.js}"></script>
+    <script th:src="@{/lib/angular.js/1.4.8/angular-resource.js}"></script>
+    <script th:src="@{/lib/angular.js/1.4.8/angular-route.js}"></script>
+    <script th:src="@{/js/module.js}"></script>
+    <script th:src="@{/js/controllers.js}"></script>
+    <script th:src="@{/js/services.js}"></script>
+    <script th:src="@{/js/blog/module.js}"></script>
+    <script th:src="@{/js/blog/services.js}"></script>
+    <script th:src="@{/js/blog/controllers.js}"></script>
+    <script th:src="@{/js/blog/directives.js}"></script>
+    <script th:src="@{/js/user/module.js}"></script>
+    <script th:src="@{/js/user/controllers.js}"></script>
+    <script th:src="@{/js/user/services.js}"></script>
+</div>
+
+</body>
+</html>

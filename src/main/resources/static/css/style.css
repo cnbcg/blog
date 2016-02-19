@@ -1,0 +1,151 @@
+html, body {
+    height: 100%;
+    width: 100%;
+}
+
+body {
+    padding-top: 50px;
+    padding-left: 240px;
+}
+
+a {
+    color: #f82;
+}
+
+a:focus, a:hover {
+    color: #d82;
+    text-decoration: underline;
+}
+
+#message {
+    width: 300px;
+    position: fixed;
+    top: 60px;
+    right: -300px;
+    border: 0px;
+    border-radius : 0px;
+    z-index: 998;
+    box-shadow: 0px 2px 5px #aaa;
+}
+
+.navbar-headbar {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    z-index: 999;
+    border-radius: 0px;
+    border: 0px;
+    border-top: 3px solid #0cf;
+}
+
+.navbar-headbar .navbar-brand {
+    width: 240px;
+    text-align: center;
+    color: #0cf;
+}
+
+.sidebar {
+    width: 240px;
+    background: #222;
+    color: #aaa;
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
+    padding-top: 50px;
+    z-index: 998;
+    text-align: center;
+}
+
+.sidebar .sidebar-profile-avatar {
+    width: 100%;
+    height: 200px;
+    margin-bottom: 10px;
+}
+
+.sidebar .sidebar-profile-desc {
+    padding: 20px 10px;
+}
+
+.sidebar .sidebar-menu-item {
+    color: #aaa;
+    display: block;
+    padding: 20px;
+    cursor: pointer;
+    border-right: 4px solid transparent;
+}
+
+.sidebar .sidebar-menu-item:hover, .sidebar .sidebar-menu-item.active {
+    background: #000;
+    border-right: 4px solid #0cf;
+    color: #fff;
+    text-decoration: none;
+}
+
+#mainWrapper, #main {
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+}
+
+#main .content-title {
+    padding: 20px;
+    font-size: 30px;
+    background-color: #eee;
+}
+
+#main>form {
+    margin: 50px;
+}
+
+.btn-default {
+    color: #fff!important;;
+    background-color: #0cf;
+    border: 0px;
+    border-radius: 0px;
+    box-shadow: 0px 2px 2px #999;
+}
+
+.btn-default:hover, .btn-default:active, .btn-default:focus {
+    background-color: #333!important;
+}
+
+.form-control {
+    border-radius:0px;
+    max-width: 800px;
+}
+
+#loginForm .form-control {
+    max-width: 400px;
+}
+
+.form-control:hover, .form-control:focus, .form-control:active {
+    border-color: #0cf;
+}
+
+::selection {
+    background: #f82;
+    color: #fff;
+}
+
+::-moz-selection {
+    background: #f82;
+    color: #fff;
+}
+
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.2);
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(0, 189, 255, 0.9);
+}
+
+::-webkit-scrollbar-thumb:window-inactive {
+    background: rgba(0, 0, 0, 0.3);
+}

@@ -1,0 +1,14 @@
+#----------------------------------------------------------------------
+# SYSTEM & SECURITY CONFIGURATION
+#----------------------------------------------------------------------
+
+spring:
+  datasource:
+    url: jdbc:mysql://localhost/blog
+    username: blog
+    password: blog
+    driver-class-name: com.mysql.jdbc.Driver
+  thymeleaf:
+    cache: false
+  messages:
+    cache-seconds: 0
