@@ -1,0 +1,48 @@
+<div class="content-title">
+    <span class="glyphicon glyphicon-user" aria-hidden="true"></span> 用户注册
+</div>
+<form name="registerForm" class="form-horizontal" role="form" novalidate="novalidate" ng-submit="register(user)">
+
+    <div class="form-group">
+        <label for="email" class="col-sm-2 control-label">邮箱</label>
+        <div class="col-sm-4">
+            <input id="email" type="email" class="form-control" ng-model="user.email" placeholder="请输入邮箱" required=""/>
+        </div>
+        <div class="col-sm-6">
+            <span class="control-desc">用于登录及找回密码</span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="username" class="col-sm-2 control-label">用户名</label>
+        <div class="col-sm-4">
+            <input id="username" type="text" class="form-control" ng-model="user.username" placeholder="请输入用户名" required="" ng-minlength="4" ng-maxlength="12" ng-pattern="/^[a-zA-Z]\w{3,11}$/"/>
+        </div>
+        <div class="col-sm-6">
+            <span class="control-desc">需字母开头且仅能包含字母数字下划线，长度4到12位</span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="nickname" class="col-sm-2 control-label">昵称</label>
+        <div class="col-sm-4">
+            <input id="nickname" type="text" class="form-control" ng-model="user.nickname" placeholder="请输入昵称" required="" ng-minlength="2" ng-maxlength="10" ng-pattern="/^[\u4e00-\u9fa5a-zA-Z0-9]+$/"/>
+        </div>
+        <div class="col-sm-6">
+            <span class="control-desc">仅能包含字母数字汉字，长度2到10位</span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="password" class="col-sm-2 control-label">密码</label>
+        <div class="col-sm-4">
+            <input id="password" type="password" class="form-control" ng-model="user.password" placeholder="请输入密码" required="" ng-minlength="6" ng-maxlength="16" ng-pattern="/^.*(?=.*\d)(?=.*[a-zA-Z]).*$/"/>
+        </div>
+        <div class="col-sm-6">
+            <span class="control-desc">需同时包含字母和数字，长度6到16位</span>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" class="btn btn-default" ng-disabled="!registerForm.$valid">注册</button>
+            <a class="btn btn-default" ng-click="cancel()">取消</a>
+        </div>
+    </div>
+</form>

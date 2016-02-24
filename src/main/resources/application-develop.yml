@@ -12,3 +12,5 @@ spring:
     cache: false
   messages:
     cache-seconds: 0
+  mail:
+    test-connection: false

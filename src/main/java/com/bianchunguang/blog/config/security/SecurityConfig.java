@@ -8,6 +8,7 @@ import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -21,7 +22,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
-import org.springframework.security.web.authentication.logout.HttpStatusReturningLogoutSuccessHandler;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 
 import java.util.stream.Collectors;
@@ -30,9 +30,7 @@ import java.util.stream.Collectors;
 @Order(SecurityProperties.ACCESS_OVERRIDE_ORDER)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private
-    @Autowired
-    UserService userService;
+    private @Autowired UserService userService;
 
     protected void configure(HttpSecurity http) throws Exception {
         http
@@ -41,6 +39,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/lib/**", "/themes/**").permitAll()
                 // 开放公共视图
                 .antMatchers("/", "/view**", "/directives**").permitAll()
+                .antMatchers(HttpMethod.GET, "/blogs").permitAll()
+                .antMatchers(HttpMethod.POST, "/users").permitAll()
+                .antMatchers(HttpMethod.PUT, "/users/activate/*").permitAll()
                 .anyRequest().authenticated()
                 .and().formLogin().failureHandler(authenticationFailureHandler()).successHandler(authenticationSuccessHandler()).loginPage("/login").permitAll()
                 .and().logout().logoutSuccessHandler(logoutSuccessHandler()).and().csrf().disable();
@@ -83,6 +84,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
             if (user == null || !user.isEnabled()) {
                 throw new UsernameNotFoundException("User not exists");
+            }
+
+            if (!user.isActivated()) {
+                throw new UsernameNotFoundException("User doesn't activated");
             }
 
             return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(),

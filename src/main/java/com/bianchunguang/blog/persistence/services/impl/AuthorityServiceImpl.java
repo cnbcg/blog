@@ -18,4 +18,9 @@ public class AuthorityServiceImpl extends AbstractServiceImpl<Authority, UUID> i
     protected JpaRepository<Authority, UUID> getRepository() {
         return authorityRepository;
     }
+
+
+    public Authority findByAuthorityType(Authority.AuthorityType authorityType) {
+        return authorityRepository.findByAuthorityType(authorityType);
+    }
 }

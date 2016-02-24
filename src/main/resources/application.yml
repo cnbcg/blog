@@ -16,10 +16,17 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
-  thymeleaf:
-    cache: true
   messages:
     basename: i18n/message
+  thymeleaf:
+    cache: true
+  mail:
+    host: smtp.exmail.qq.com
+    port: 465
+    username: service@bianchunguang.com
+    password: bcg2BCG
+    properties :
+      mail.smtp.ssl.enable: true
 
 logging:
   path: /blog.log

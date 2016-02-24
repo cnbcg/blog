@@ -1,25 +1,39 @@
 <div class="content-title">
-    <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> 发布新博客
+    <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> 新文章
 </div>
-<form class="form-horizontal" ng-submit="createBlog(blog)">
-    <div class="form-group">
-        <label for="blog_title" class="col-sm-2 control-label">标题</label>
-        <div class="col-sm-9">
-            <input type="text" class="form-control" id="blog_title" ng-model="blog.title"
-                   placeholder="Please enter blog title"/>
+<div class="row">
+    <div class="col-sm-6">
+        <form name="blogEditForm" class="form-horizontal" ng-submit="createBlog(blog)" novalidate="novalidate">
+            <div class="form-group">
+                <div class="col-sm-12">
+                    <input type="text" class="form-control" id="blog_title" ng-model="blog.title"
+                           placeholder="请输入文章标题" required="" />
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-12">
+                    <textarea id="blog_content" class="form-control" ng-model="blog.content" rows="20"
+                              placeholder="请输入文章正文" required=""></textarea>
+                    <div>{{blog.content.length}} / 20000</div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-12">
+                    <button type="submit" class="btn btn-default" ng-disabled="!blogEditForm.$valid">保存</button>
+                    <a class="btn btn-default" ng-click="cancel()">取消</a>
+                </div>
+            </div>
+        </form>
+
+    </div>
+    <div class="col-sm-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">文章预览</h3>
+            </div>
+            <div class="panel-body">
+                <blog/>
+            </div>
         </div>
     </div>
-    <div class="form-group">
-        <label for="blog_content" class="col-sm-2 control-label">内容</label>
-        <div class="col-sm-9">
-            <textarea id="blog_content" class="form-control" ng-model="blog.content" rows="20"
-                      placeholder="Please enter blog content"></textarea>
-        </div>
-    </div>
-    <div class="form-group">
-        <div class="col-sm-offset-2 col-sm-10">
-            <button type="submit" class="btn btn-default">保存</button>
-            <a class="btn btn-default" ng-click="cancel()">取消</a>
-        </div>
-    </div>
-</form>
+</div>

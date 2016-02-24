@@ -1,3 +1,10 @@
-<div id="blogsContainer">
-    <blog ng-repeat="blog in blogs" />
+<div class="row">
+    <div class="col-md-9">
+        <blog ng-repeat="blog in blogs">正在加载数据...</blog>
+        <pagination page-now="1" page-count="10" select-page="selectPage(pageNow)" />
+    </div>
+    <div class="col-md-3">
+        <div th:include="fragments/layout :: fragment-navbar-sidebar" th:remove="tag"></div>
+    </div>
+
 </div>

@@ -7,4 +7,6 @@ import java.util.UUID;
 public interface UserService extends AbstractService<User, UUID> {
 
     User findByAccount(String account);
+
+    User findByActivateCode(UUID activateCode);
 }

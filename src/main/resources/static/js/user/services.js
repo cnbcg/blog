@@ -9,15 +9,17 @@ user.factory('authenticationService', function ($http, $window, $location, messa
 
     return {
         authenticate: function (credentials, successCallback, errorCallback) {
+            NProgress.start();
             $http.post('/login?' + $.param(credentials)).success(function (user) {
                 (authUser = user) && ($window.sessionStorage["authUser"] = JSON.stringify(user));
                 successCallback && successCallback(authUser);
                 $location.path(rememberedRequest) && (rememberedRequest = LOGIN_DEFAULT_PATH);
 
             }).error(function (error) {
-                messageService.showMessage(error.message);
+                messageService.showSuccessMessage("账号未激活或用户名、密码错误");
                 errorCallback && errorCallback(error);
             });
+            NProgress.done();
         },
         logout: function () {
             $http.post('/logout');
@@ -36,4 +38,6 @@ user.factory('authenticationService', function ($http, $window, $location, messa
         }
     };
 
+}).factory("Users", function ($resource) {
+    return $resource("/users/:id", {id: "@id"});
 });

@@ -1,11 +1,12 @@
-html, body {
-    height: 100%;
-    width: 100%;
+html {
+    position: relative;
+    min-height: 100%;
 }
 
 body {
-    padding-top: 50px;
-    padding-left: 240px;
+    font-family: "Arial", "Microsoft YaHei", "黑体", "宋体", sans-serif;
+    background: #fff;
+    margin-bottom: 207px;
 }
 
 a {
@@ -20,42 +21,45 @@ a:focus, a:hover {
 #message {
     width: 300px;
     position: fixed;
-    top: 60px;
+    top: 65px;
     right: -300px;
     border: 0px;
-    border-radius : 0px;
+    border-radius: 0px;
     z-index: 998;
-    box-shadow: 0px 2px 5px #aaa;
+    box-shadow: 0px 0px 20px #aaa;
+}
+
+#message.alert-success {
+    background: #5a0;
+    color: #fff;
+}
+
+#message.alert-danger {
+    background: #f80;
+    color: #fff;
 }
 
 .navbar-headbar {
-    position: absolute;
-    top: 0px;
-    left: 0px;
-    right: 0px;
-    z-index: 999;
     border-radius: 0px;
     border: 0px;
-    border-top: 3px solid #0cf;
+    border-top: 3px solid #0cc;
 }
 
 .navbar-headbar .navbar-brand {
-    width: 240px;
-    text-align: center;
-    color: #0cf;
+    color: #0cc;
 }
 
 .sidebar {
-    width: 240px;
     background: #222;
     color: #aaa;
-    position: absolute;
-    top: 0px;
-    bottom: 0px;
-    left: 0px;
-    padding-top: 50px;
-    z-index: 998;
     text-align: center;
+    margin-bottom: 15px;
+}
+
+.sidebar-title {
+    padding: 20px;
+    background: #099;
+    color: #fff;
 }
 
 .sidebar .sidebar-profile-avatar {
@@ -73,55 +77,100 @@ a:focus, a:hover {
     display: block;
     padding: 20px;
     cursor: pointer;
-    border-right: 4px solid transparent;
 }
 
 .sidebar .sidebar-menu-item:hover, .sidebar .sidebar-menu-item.active {
     background: #000;
-    border-right: 4px solid #0cf;
     color: #fff;
     text-decoration: none;
 }
 
-#mainWrapper, #main {
-    width: 100%;
-    height: 100%;
-    overflow: auto;
+#mainWrapper {
+    background: #fff;
+    padding-top: 15px;
 }
 
 #main .content-title {
     padding: 20px;
     font-size: 30px;
     background-color: #eee;
+    color: #0cc;
+    margin-bottom: 25px;
 }
 
-#main>form {
-    margin: 50px;
+#main > form {
+    margin: 20px;
 }
 
 .btn-default {
-    color: #fff!important;;
-    background-color: #0cf;
+    color: #fff !important;
+    background-color: #0cc !important;
     border: 0px;
     border-radius: 0px;
     box-shadow: 0px 2px 2px #999;
+    outline: 0px !important;
 }
 
-.btn-default:hover, .btn-default:active, .btn-default:focus {
-    background-color: #333!important;
+.btn-default:hover, .btn-default:active {
+    background-color: #333 !important;
 }
 
-.form-control {
-    border-radius:0px;
+.btn-default[disabled] {
+    background-color: #ccc !important;
+    box-shadow: 0px 2px 2px #999;
+}
+
+.panel {
+    border-radius: 0px;
+}
+
+form[name="loginForm"], form[name="registerForm"] {
     max-width: 800px;
 }
 
-#loginForm .form-control {
-    max-width: 400px;
+.form-control {
+    border-radius: 0px;
+    max-width: 800px;
 }
 
 .form-control:hover, .form-control:focus, .form-control:active {
-    border-color: #0cf;
+    border-color: #0cc;
+}
+
+.form-control.ng-dirty.ng-invalid {
+    border-color: #f50;
+}
+
+.control-desc {
+    line-height: 34px;
+}
+
+.footer {
+    color: #ccc;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background-color: #222;
+    overflow: auto;
+    padding: 10px 0px;
+}
+
+.footer-menu {
+    margin: 20px 0px;
+}
+
+.footer-menu-title {
+    color: #0cc;
+    padding-bottom: 5px;
+    font-size: 16px;
+}
+
+.footer-menu-item {
+    padding: 2px 0px;
+}
+
+.footer-menu-item a {
+    vertical-align: top;
 }
 
 ::selection {
@@ -135,7 +184,8 @@ a:focus, a:hover {
 }
 
 ::-webkit-scrollbar {
-    width: 8px;
+    height: 10px;
+    width: 10px;
 }
 
 ::-webkit-scrollbar-track {
@@ -143,9 +193,9 @@ a:focus, a:hover {
 }
 
 ::-webkit-scrollbar-thumb {
-    background: rgba(0, 189, 255, 0.9);
+    background: rgba(0, 189, 189, 0.9);
 }
 
 ::-webkit-scrollbar-thumb:window-inactive {
-    background: rgba(0, 0, 0, 0.3);
+    background: rgba(0, 189, 189, 0.3);
 }

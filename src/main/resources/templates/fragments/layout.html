@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
     <link rel="stylesheet" th:href="@{/lib/bootstrap-3.3.5-dist/css/bootstrap.min.css}"/>
-    <link rel="stylesheet" th:href="@{/lib/nprogress/nprogress.css}" />
+    <link rel="stylesheet" th:href="@{/lib/nprogress/nprogress.css}"/>
     <link rel="stylesheet" th:href="@{/css/style.css}"/>
     <link rel="stylesheet" th:href="@{/css/blog.css}"/>
     <link rel="stylesheet" th:href="${#themes.code('css')}"/>
@@ -21,11 +21,12 @@
 
 </head>
 <body>
-<div th:fragment="fragment-nav">
+<div th:fragment="fragment-navbar-headbar">
     <nav class="navbar navbar-inverse navbar-headbar">
-        <div class="container-fluid">
+        <div class="container">
             <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-headbar" aria-expanded="false">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                        data-target="#navbar-headbar" aria-expanded="false">
                     <span class="sr-only">Toggle navigation</span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
@@ -36,17 +37,23 @@
 
             <div class="collapse navbar-collapse" id="navbar-headbar">
                 <ul class="nav navbar-nav">
-                    <li class="{{path == '/:username/blogs' ? 'active' : ''}}"><a href="blogs" th:text="#{nav.headbar.myblog}">我的博客</a></li>
-                    <li class="{{path == '/newblog' ? 'active' : ''}}"><a href="newblog" th:text="#{nav.headbar.newblog}">写博客</a></li>
+                    <li class="{{path == '/blogs' ? 'active' : ''}}"><a href="blogs"
+                                                                        th:text="#{nav.headbar.blog}">博客</a></li>
+                    <li class="{{path == '/album' ? 'active' : ''}}"><a th:text="#{nav.headbar.album}">相册</a></li>
+                    <li class="{{path == '/about' ? 'active' : ''}}"><a href="" th:text="#{nav.headbar.about}">关于</a>
+                    </li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li th:class="${locale == 'zh_CN' ? 'active' : ''}" ng-click="changeUI('locale', 'zh_CN')"><a href="#">中文</a></li>
                     <li th:class="${locale == 'en_US' ? 'active' : ''}" ng-click="changeUI('locale', 'en_US')"><a href="#">English</a></li>
                     <li th:class="${theme == 'horizontal' ? 'active' : ''}" ng-click="changeUI('theme', 'horizontal')"><a href="#" th:text="#{nav.headbar.theme.pc}">桌面版</a></li>
                     <li th:class="${theme == 'vertical' ? 'active' : ''}" ng-click="changeUI('theme', 'vertical')"><a href="#" th:text="#{nav.headbar.theme.mobile}">移动版</a></li>
-                    <li ng-show="!authenticationService.isAuthenticated()"><a href="login" th:text="#{nav.headbar.login}">登录</a></li>
+                    <li class="{{path == '/login' ? 'active' : ''}}" ng-show="!authenticationService.isAuthenticated()"><a href="login" th:text="#{nav.headbar.login}">登录</a></li>
+                    <li class="{{path == '/register' ? 'active' : ''}}" ng-show="!authenticationService.isAuthenticated()"><a href="register" th:text="#{nav.headbar.register}">注册</a></li>
                     <li ng-show="authenticationService.isAuthenticated()" class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> {{authenticationService.authUser().username}} <span class="caret"></span></a>
+                        <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                           aria-expanded="false"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                            {{authenticationService.authUser().username}} <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li><a href="profile">Profile</a></li>
                             <li role="separator" class="divider"></li>
@@ -57,19 +64,60 @@
             </div>
         </div>
     </nav>
+</div>
+
+<div th:fragment="fragment-navbar-sidebar">
     <div class="sidebar">
-        <div class="sidebar-profile">
-            <img class="sidebar-profile-avatar" th:src="@{/images/avatar.jpg}"/>
-            <div class="sidebar-profile-name">bcg</div>
-            <div class="sidebar-profile-desc">码农一枚，身在大连，专注于高可用及大数据方向，现就职于BCG集团，担任技术总监。</div>
-        </div>
-        <div class="sidebar-menu">
-            <a class="sidebar-menu-item active" th:text="#{nav.sidebar.blog}">博客</a>
-            <a class="sidebar-menu-item" th:text="#{nav.sidebar.album}">相册</a>
-            <a class="sidebar-menu-item" th:text="#{nav.sidebar.production}">作品</a>
-            <a class="sidebar-menu-item" th:text="#{nav.sidebar.about}">关于</a>
+        <div class="sidebar-title">个人资料</div>
+        <div class="sidebar-content">
+            <div class="sidebar-profile">
+                <img class="sidebar-profile-avatar" th:src="@{/images/avatar.jpg}"/>
+                <div class="sidebar-profile-name">bcg</div>
+                <div class="sidebar-profile-desc">码农一枚，身在大连，专注于高可用及大数据方向，现就职于BCG集团，担任技术总监。</div>
+            </div>
         </div>
     </div>
+    <div class="sidebar">
+        <div class="sidebar-title">操作</div>
+        <div class="sidebar-content">
+            <div class="sidebar-menu">
+                <a class="sidebar-menu-item {{path == '/newblog' ? 'active' : ''}}" href="newblog"
+                   th:text="#{nav.sidebar.newblog}">写博客</a>
+                <a class="sidebar-menu-item" th:text="#{nav.sidebar.newalbum}">新建相册</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:fragment="fragment-footer">
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-4 footer-menu">
+
+                    <div class="footer-menu-title">BCG BLOG</div>
+                    <div class="footer-menu-item">© Copyright 2016, bianchunguang.com</div>
+                    <div class="footer-menu-item">Powered by 阿里云</div>
+                    <div class="footer-menu-item"><svg aria-hidden="true" class="octicon octicon-mark-github" height="24" role="img" title="GitHub " version="1.1" viewBox="0 0 16 16" width="24"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59 0.4 0.07 0.55-0.17 0.55-0.38 0-0.19-0.01-0.82-0.01-1.49-2.01 0.37-2.53-0.49-2.69-0.94-0.09-0.23-0.48-0.94-0.82-1.13-0.28-0.15-0.68-0.52-0.01-0.53 0.63-0.01 1.08 0.58 1.23 0.82 0.72 1.21 1.87 0.87 2.33 0.66 0.07-0.52 0.28-0.87 0.51-1.07-1.78-0.2-3.64-0.89-3.64-3.95 0-0.87 0.31-1.59 0.82-2.15-0.08-0.2-0.36-1.02 0.08-2.12 0 0 0.67-0.21 2.2 0.82 0.64-0.18 1.32-0.27 2-0.27 0.68 0 1.36 0.09 2 0.27 1.53-1.04 2.2-0.82 2.2-0.82 0.44 1.1 0.16 1.92 0.08 2.12 0.51 0.56 0.82 1.27 0.82 2.15 0 3.07-1.87 3.75-3.65 3.95 0.29 0.25 0.54 0.73 0.54 1.48 0 1.07-0.01 1.93-0.01 2.2 0 0.21 0.15 0.46 0.55 0.38C13.71 14.53 16 11.53 16 8 16 3.58 12.42 0 8 0z"></path></svg>
+                    <a href="https://github.com/cnbcg">https://github.com/cnbcg</a></div>
+                </div>
+                <div class="col-sm-4 footer-menu">
+                    <div class="footer-menu-title">QQ 群</div>
+                    <div class="footer-menu-item">Spark / ELK / Flume : 1234567</div>
+                    <div class="footer-menu-item">Docker / k8s / linux : 23423423</div>
+                    <div class="footer-menu-item">Spring / Boot / Shrio / CAS : 45645645</div>
+                    <div class="footer-menu-item">AngularJS / React / JQuery / NodeJS : 45645645</div>
+                    <div class="footer-menu-item">Git / GitLab / CI : 45645645</div>
+                </div>
+                <div class="col-sm-4 footer-menu">
+                    <div class="footer-menu-title">QQ 群</div>
+                    <div class="footer-menu-item">Spark/ELK/Flume群: 1234567</div>
+                    <div class="footer-menu-item">Docker/k8s/linux群: 23423423</div>
+                    <div class="footer-menu-item">Spring/Boot/Shrio/CAS群: 45645645</div>
+                </div>
+            </div>
+        </div>
+    </footer>
 </div>
 
 <div th:fragment="fragment-js">
@@ -80,9 +128,13 @@
     <script th:src="@{/lib/angular.js/1.4.8/angular.js}"></script>
     <script th:src="@{/lib/angular.js/1.4.8/angular-resource.js}"></script>
     <script th:src="@{/lib/angular.js/1.4.8/angular-route.js}"></script>
+    <script th:src="@{/lib/angular.js/1.4.8/angular-sanitize.min.js}"></script>
+    <script th:src="@{/lib/showdown/showdown.min.js}"></script>
+    <script th:src="@{/lib/showdown/ng-showdown.min.js}"></script>
     <script th:src="@{/js/module.js}"></script>
     <script th:src="@{/js/controllers.js}"></script>
     <script th:src="@{/js/services.js}"></script>
+    <script th:src="@{/js/directives.js}"></script>
     <script th:src="@{/js/blog/module.js}"></script>
     <script th:src="@{/js/blog/services.js}"></script>
     <script th:src="@{/js/blog/controllers.js}"></script>

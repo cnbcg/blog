@@ -21,6 +21,11 @@ public class UserServiceImpl extends AbstractServiceImpl<User, UUID> implements 
 
     @Override
     public User findByAccount(String account) {
-        return userRepository.findByUsername(account);
+        return account.indexOf("@") != -1 ? userRepository.findByEmail(account) : userRepository.findByUsername(account);
+    }
+
+    @Override
+    public User findByActivateCode(UUID activateCode) {
+        return userRepository.findByActivateCode(activateCode);
     }
 }

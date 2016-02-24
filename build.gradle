@@ -37,6 +37,8 @@ dependencies {
     compile('org.springframework.boot:spring-boot-starter-thymeleaf')
     compile('org.springframework.boot:spring-boot-starter-security')
 
+    compile('org.springframework.boot:spring-boot-starter-mail')
+
     runtime('com.h2database:h2')
     runtime("mysql:mysql-connector-java:${mysqlDriverVersion}")
 

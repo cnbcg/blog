@@ -2,13 +2,18 @@ package com.bianchunguang.blog.web.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.servlet.support.RequestContextUtils;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 
 public class BaseController {
 
@@ -37,6 +42,10 @@ public class BaseController {
 
     public Model getModel() {
         return modelThreadLocal.get();
+    }
+
+    public <T> T messageResponseEntity(Object message, HttpStatus httpStatus) {
+        return (T) new ResponseEntity("{\"message\": \"" + message + "\"}", httpStatus);
     }
 
 }

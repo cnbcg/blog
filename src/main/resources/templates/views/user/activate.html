@@ -1,0 +1,8 @@
+<div class="content-title">
+    <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span> 邮箱激活
+</div>
+<div class="container">
+    <h1><span ng-show="activateUser != null">激活成功: {{activateUser.email}}，<a href="login">点此</a>登陆;</span>
+        <span ng-show="activateUser == null">激活失败，用户已激活或激活码无效</span>
+    </h1>
+</div>

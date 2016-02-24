@@ -6,10 +6,9 @@ var blog = angular.module('blog', [])
             .when('/blogs', {
                 templateUrl: 'views-blog-list',
                 controller: 'BlogListController',
-                authority: 'user',
                 resolve: {
-                    blogs: function ($route, authenticationService, Blogs) {
-                        return Blogs.query({username: authenticationService.authUser().username});
+                    paginationBlog: function ($route, authenticationService, Blogs, BLOG_USERNAME) {
+                        return Blogs.paginationQuery({username: BLOG_USERNAME});
                     }
                 }
             })
@@ -17,8 +16,5 @@ var blog = angular.module('blog', [])
                 templateUrl: 'views-blog-edit',
                 controller: 'BlogEditController',
                 authority: 'user'
-            })
-            .otherwise({
-                redirectTo: '/'
             });
     });
