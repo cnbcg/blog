@@ -16,7 +16,10 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/users")
@@ -55,23 +58,29 @@ public class UserController extends BaseController {
 
         Map<String, Object> mailContentVariablesMap = new HashMap<>();
         mailContentVariablesMap.put("activateUrl", StringUtils.getRootUrl(request) + "activate/" + user.getActivateCode());
-        emailSender.sendEmail("[BCG BLOG] User Activation",  new String[]{user.getEmail()}, "mail/register_active_token", mailContentVariablesMap);
+        emailSender.sendEmail("[BCG BLOG] User Activation", new String[]{user.getEmail()}, "mail/register_active_token", mailContentVariablesMap);
 
         return new ResponseEntity(user, HttpStatus.OK);
     }
 
     @RequestMapping(value = "activate/{activateCode}", method = RequestMethod.PUT)
-    public User activate(@PathVariable String activateCode) {
+    public ResponseEntity<User> activate(@PathVariable String activateCode) {
         User user = userService.findByActivateCode(UUIDGenerator.valueOf(activateCode));
 
-        if (user == null || user.isActivated() || !user.isEnabled()) {
-            throw new NullPointerException("Cant find user by activateCode: " + activateCode);
+        if (user == null) {
+            return messageResponseEntity("激活码无效", HttpStatus.BAD_REQUEST);
+
+        } else if (user.isActivated()) {
+            return messageResponseEntity("用户已激活", HttpStatus.BAD_REQUEST);
+
+        } else if (!user.isEnabled()) {
+            return messageResponseEntity("用户已冻结", HttpStatus.BAD_REQUEST);
         }
 
         user.setActivated(true);
         userService.save(user);
 
-        return user;
+        return new ResponseEntity(user, HttpStatus.OK);
     }
 
 }

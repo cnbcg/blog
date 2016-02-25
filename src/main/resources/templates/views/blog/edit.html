@@ -19,8 +19,8 @@
             </div>
             <div class="form-group">
                 <div class="col-sm-12">
-                    <button type="submit" class="btn btn-default" ng-disabled="!blogEditForm.$valid">保存</button>
-                    <a class="btn btn-default" ng-click="cancel()">取消</a>
+                    <button type="submit" class="btn btn-default" ng-disabled="!blogEditForm.$valid"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> 保存</button>
+                    <a class="btn btn-default" ng-click="cancel()"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> 取消</a>
                 </div>
             </div>
         </form>
@@ -32,7 +32,7 @@
                 <h3 class="panel-title">文章预览</h3>
             </div>
             <div class="panel-body">
-                <blog/>
+                <blog blog="blog"/>
             </div>
         </div>
     </div>

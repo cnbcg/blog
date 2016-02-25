@@ -25,7 +25,7 @@ public class ControllerAdvices extends BaseController {
 
     @RequestMapping("/login")
     public ResponseEntity<String> login() {
-        return messageResponseEntity("未登录或会话超时，请重新登录", HttpStatus.UNAUTHORIZED);
+        return messageResponseEntity("未登录、权限不足或会话超时，请重新登录", HttpStatus.UNAUTHORIZED);
     }
 
     @RequestMapping(value="/{template}")

@@ -9,13 +9,9 @@ user.controller('UserLoginController', function ($scope) {
         Users.save(user, function(dbUser) {
             messageService.showMessage("注册成功, 请查看邮件激活账号。");
             $location.path('login');
-
-        }, function(response) {
-            messageService.showMessage(response.data.message);
         });
     };
 
 }).controller('UserActivateController', function ($scope, user) {
-    console.log(user);
     $scope.activateUser = user;
 });

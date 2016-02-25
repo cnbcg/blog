@@ -18,6 +18,15 @@ a:focus, a:hover {
     text-decoration: underline;
 }
 
+[ng-cloak],
+[data-ng-cloak],
+[x-ng-cloak],
+.ng-cloak,
+.x-ng-cloak,
+.ng-hide {
+    display:none !important;
+}
+
 #message {
     width: 300px;
     position: fixed;
@@ -87,7 +96,6 @@ a:focus, a:hover {
 
 #mainWrapper {
     background: #fff;
-    padding-top: 15px;
 }
 
 #main .content-title {
@@ -150,6 +158,7 @@ form[name="loginForm"], form[name="registerForm"] {
     position: absolute;
     bottom: 0;
     width: 100%;
+    height: 205px;
     background-color: #222;
     overflow: auto;
     padding: 10px 0px;
@@ -162,11 +171,11 @@ form[name="loginForm"], form[name="registerForm"] {
 .footer-menu-title {
     color: #0cc;
     padding-bottom: 5px;
-    font-size: 16px;
 }
 
-.footer-menu-item {
-    padding: 2px 0px;
+.footer-menu-body {
+    border-left: 2px solid #0cc;
+    padding: 0px 8px;
 }
 
 .footer-menu-item a {

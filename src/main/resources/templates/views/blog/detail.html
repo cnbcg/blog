@@ -1,0 +1,20 @@
+<div class="row">
+    <div class="col-md-9">
+        <blog blog="blog">正在加载数据...</blog>
+    </div>
+
+    <div class="col-md-3">
+        <div class="sidebar">
+            <div class="sidebar">
+                <div class="sidebar-title">为您推荐</div>
+                <div class="sidebar-content">
+                    <div class="sidebar-menu">
+                        <a class="sidebar-menu-item {{path == '/newblog' ? 'active' : ''}}" href="newblog"
+                           th:text="#{nav.sidebar.newblog}">写博客</a>
+                        <a class="sidebar-menu-item" th:text="#{nav.sidebar.newalbum}">新建相册</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

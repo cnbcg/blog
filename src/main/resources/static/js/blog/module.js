@@ -7,8 +7,31 @@ var blog = angular.module('blog', [])
                 templateUrl: 'views-blog-list',
                 controller: 'BlogListController',
                 resolve: {
-                    paginationBlog: function ($route, authenticationService, Blogs, BLOG_USERNAME) {
-                        return Blogs.paginationQuery({username: BLOG_USERNAME});
+                    paginationBlog: function ($q, Blogs, BLOG_USERNAME) {
+                        var defer = $q.defer();
+                        Blogs.paginationQuery({username: BLOG_USERNAME}, function(data) {
+                            defer.resolve(data);
+
+                        }, function(data) {
+                            defer.reject(data);
+                        });
+                        return defer.promise;
+                    }
+                }
+            })
+            .when('/blogs/:id', {
+                templateUrl: 'views-blog-detail',
+                controller: 'BlogDetailController',
+                resolve: {
+                    blog: function ($route, $q, messageService, Blogs) {
+                        var defer = $q.defer();
+                        Blogs.get({id: $route.current.params.id}, function(data) {
+                            defer.resolve(data);
+
+                        }, function(data) {
+                            defer.reject(data);
+                        });
+                        return defer.promise;
                     }
                 }
             })

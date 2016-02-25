@@ -15,8 +15,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/blogs")
@@ -33,7 +33,18 @@ public class BlogController extends BaseController {
             return messageResponseEntity("There is no user with username : " + requestParamMap.get("username"), HttpStatus.BAD_REQUEST);
         }
 
-        return new ResponseEntity(blogService.findByAuthor(user, pageable), HttpStatus.OK);
+        Page<Blog> blogs = blogService.findByAuthor(user, pageable);
+        blogs.getContent().stream().forEach(blog -> {
+            String content = blog.getContent();
+            blog.setContent(content.length() > 400 ? content.substring(0, 400) : content);
+        });
+
+        return new ResponseEntity(blogs, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    public ResponseEntity<Blog> getBlog(@PathVariable UUID id) {
+        return new ResponseEntity(blogService.findOne(id), HttpStatus.OK);
     }
 
     @RequestMapping(method = RequestMethod.POST)

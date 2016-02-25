@@ -39,4 +39,4 @@ logging:
 
 ui:
   local: en_US
-  theme: vertical
+  theme: horizontal
