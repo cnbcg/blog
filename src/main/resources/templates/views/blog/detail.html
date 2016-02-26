@@ -1,18 +1,48 @@
 <div class="row">
     <div class="col-md-9">
-        <blog blog="blog">正在加载数据...</blog>
+        <blog blog="blog" comment-count="paginationBlogComments.totalElements">正在加载数据...</blog>
+
+        <div class="commentWrapper" ng-controller="BlogCommentController">
+            <div class="title"><span class="glyphicon glyphicon-comment" aria-hidden="true"></span> 评论</div>
+
+            <comment comment="blogComment" reply="reply(comment)" delete="delete(comment)" ng-repeat="blogComment in paginationBlogComments.content"></comment>
+            <pagination page-now="paginationBlogComments.number" page-count="paginationBlogComments.totalPages" select-page="selectPage(pageNow)"></pagination>
+
+            <div id="commentParent" ng-show="blogComment.parent != null" class="reply">回复: <a class="pull-right" href="#" ng-click="blogComment.parent = null">删除</a><comment comment="blogComment.parent" replay="reply(comment)" delete="delete(comment)"></comment></div>
+            <form name="blogCommentEditForm" class="form-horizontal" ng-submit="createBlogComment(blog, blogComment)" novalidate="novalidate">
+                <div class="form-group">
+                    <div class="col-sm-12">
+                        <textarea id="blog_content" class="form-control" ng-model="blogComment.content" rows="5" placeholder="请输入评论"></textarea>
+                        <div>{{blogComment.content.length}} / 500</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-12">
+                        <button type="submit" class="btn btn-default" ng-disabled="!blogCommentEditForm.$valid"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> 保存</button>
+                    </div>
+                </div>
+            </form>
+        </div>
     </div>
 
     <div class="col-md-3">
         <div class="sidebar">
-            <div class="sidebar">
-                <div class="sidebar-title">为您推荐</div>
-                <div class="sidebar-content">
-                    <div class="sidebar-menu">
-                        <a class="sidebar-menu-item {{path == '/newblog' ? 'active' : ''}}" href="newblog"
-                           th:text="#{nav.sidebar.newblog}">写博客</a>
-                        <a class="sidebar-menu-item" th:text="#{nav.sidebar.newalbum}">新建相册</a>
-                    </div>
+            <div class="sidebar-title">相似文章</div>
+            <div class="sidebar-content">
+                <div class="sidebar-menu">
+                    <a class="sidebar-menu-item {{path == '/newblog' ? 'active' : ''}}" href="newblog"
+                       th:text="#{nav.sidebar.newblog}">写博客</a>
+                    <a class="sidebar-menu-item" th:text="#{nav.sidebar.newalbum}">新建相册</a>
+                </div>
+            </div>
+        </div>
+        <div class="sidebar">
+            <div class="sidebar-title">热门文章</div>
+            <div class="sidebar-content">
+                <div class="sidebar-menu">
+                    <a class="sidebar-menu-item {{path == '/newblog' ? 'active' : ''}}" href="newblog"
+                       th:text="#{nav.sidebar.newblog}">写博客</a>
+                    <a class="sidebar-menu-item" th:text="#{nav.sidebar.newalbum}">新建相册</a>
                 </div>
             </div>
         </div>

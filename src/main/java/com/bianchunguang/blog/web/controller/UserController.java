@@ -46,12 +46,19 @@ public class UserController extends BaseController {
             return messageResponseEntity("用户名已存在", HttpStatus.BAD_REQUEST);
         }
 
-        if (result.getErrorCount() > 0 || user.getPassword() == null || !user.getPassword().matches("^.*(?=.*\\d)(?=.*[a-zA-Z]).*")) {
-            return messageResponseEntity("数据有误，请检查重试", HttpStatus.BAD_REQUEST);
+        if (userService.findByAccount(user.getUsername()) != null) {
+            return messageResponseEntity("用户名已存在", HttpStatus.BAD_REQUEST);
+        }
+
+        if (user.getPassword() == null || !user.getPassword().matches("^.*(?=.*\\d)(?=.*[a-zA-Z]).*")) {
+            return messageResponseEntity("密码需同时包含字母和数字，长度6到16位", HttpStatus.BAD_REQUEST);
+        }
+
+        if (result.getErrorCount() > 0) {
+            return messageResponseEntity(result, HttpStatus.BAD_REQUEST);
         }
 
         user.setActivateCode(UUIDGenerator.generateUUID());
-        user.setAuthorities(null);
         user.setAuthorities(Arrays.asList(authorityService.findByAuthorityType(Authority.AuthorityType.USER)));
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userService.save(user);

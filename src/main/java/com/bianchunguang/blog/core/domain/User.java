@@ -2,17 +2,17 @@ package com.bianchunguang.blog.core.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.validator.constraints.Email;
-import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
-import javax.validation.constraints.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
 @Entity
 @Table(name = "t_user")
-@JsonIgnoreProperties(value = {"blogs"})
+@JsonIgnoreProperties(value = {"blogs", "blogComments"})
 public class User extends AbstractEntity {
 
     @Column(unique = true)
@@ -42,6 +42,9 @@ public class User extends AbstractEntity {
 
     @OneToMany(mappedBy = "author", orphanRemoval = true)
     private List<Blog> blogs = new ArrayList<>();
+
+    @OneToMany(mappedBy = "author", orphanRemoval = true)
+    private List<BlogComment> blogComments = new ArrayList<>();
 
     public String getEmail() {
         return email;
@@ -107,4 +110,11 @@ public class User extends AbstractEntity {
         this.blogs = blogs;
     }
 
+    public List<BlogComment> getBlogComments() {
+        return blogComments;
+    }
+
+    public void setBlogComments(List<BlogComment> blogComments) {
+        this.blogComments = blogComments;
+    }
 }

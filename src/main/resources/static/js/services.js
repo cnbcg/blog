@@ -16,7 +16,7 @@ app.factory('messageService', function ($timeout) {
             timeout && $timeout.cancel(timeout);
 
             messageService.removeMessage(function () {
-                $("#message").text(message).transition({opacity: 1, right: 0, rotateY: '0deg', scale: '1'}, 300, 'snap')
+                $("#message").text(message).transition({opacity: 1, right: 0}, 300, 'snap')
             });
 
             timeout = $timeout(function () {
@@ -31,7 +31,7 @@ app.factory('messageService', function ($timeout) {
             this.showMessage("error", message);
         },
         removeMessage: function (callback) {
-            $("#message").transition({opacity: 1, right: -300, rotateY: '0deg', scale: '1'}, 300, 'snap', function () {
+            $("#message").transition({opacity: 0, right: -300}, 300, 'snap', function () {
                 callback && callback()
             });
         }

@@ -39,7 +39,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/lib/**", "/themes/**").permitAll()
                 // 开放公共视图
                 .antMatchers("/", "/view**", "/directives**").permitAll()
-                .antMatchers(HttpMethod.GET, "/blogs", "/blogs/*").permitAll()
+                .antMatchers(HttpMethod.GET, "/blogs", "/blogs/*", "/blogs/*/comments").permitAll()
                 .antMatchers(HttpMethod.POST, "/users").permitAll()
                 .antMatchers(HttpMethod.PUT, "/users/activate/*").permitAll()
                 .anyRequest().authenticated()

@@ -29,7 +29,7 @@ app.directive("pagination", function () {
             };
 
             $scope.isLast = function () {
-                return $scope.pageNow == $scope.pageCount - 1;
+                return $scope.pageCount == 0 || $scope.pageNow == $scope.pageCount - 1;
             };
 
         }

@@ -4,8 +4,7 @@
             <span class="glyphicon glyphicon-list" aria-hidden="true"></span> 文章列表
         </div>
         <blog blog="blog" ng-repeat="blog in paginationBlog.content">正在加载数据...</blog>
-        <pagination page-now="paginationBlog.number" page-count="paginationBlog.totalPages"
-                    select-page="selectPage(pageNow)"/>
+        <pagination page-now="paginationBlog.number" page-count="paginationBlog.totalPages" select-page="selectPage(pageNow)"></pagination>
     </div>
     <div class="col-md-3">
         <div class="sidebar">

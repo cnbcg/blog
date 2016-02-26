@@ -9,6 +9,10 @@ body {
     margin-bottom: 207px;
 }
 
+*:not(#mainWrapper) {
+    transition: all 0.2s ease-in
+}
+
 a {
     color: #f82;
 }
@@ -78,7 +82,7 @@ a:focus, a:hover {
 }
 
 .sidebar .sidebar-profile-desc {
-    padding: 20px 10px;
+    padding: 20px;
 }
 
 .sidebar .sidebar-menu-item {
@@ -106,10 +110,6 @@ a:focus, a:hover {
     margin-bottom: 25px;
 }
 
-#main > form {
-    margin: 20px;
-}
-
 .btn-default {
     color: #fff !important;
     background-color: #0cc !important;
@@ -117,10 +117,11 @@ a:focus, a:hover {
     border-radius: 0px;
     box-shadow: 0px 2px 2px #999;
     outline: 0px !important;
+    text-shadow: 0px 1px 2px #555;
 }
 
 .btn-default:hover, .btn-default:active {
-    background-color: #333 !important;
+    background-color: #099 !important;
 }
 
 .btn-default[disabled] {
@@ -134,11 +135,12 @@ a:focus, a:hover {
 
 form[name="loginForm"], form[name="registerForm"] {
     max-width: 800px;
+    margin: 20px;
+    border-radius: 0px;
 }
 
 .form-control {
     border-radius: 0px;
-    max-width: 800px;
 }
 
 .form-control:hover, .form-control:focus, .form-control:active {
@@ -198,7 +200,7 @@ form[name="loginForm"], form[name="registerForm"] {
 }
 
 ::-webkit-scrollbar-track {
-    background: rgba(0, 0, 0, 0.2);
+    background: rgba(200, 200, 200, 1);
 }
 
 ::-webkit-scrollbar-thumb {

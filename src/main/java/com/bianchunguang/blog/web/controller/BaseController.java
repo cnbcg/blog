@@ -7,11 +7,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.servlet.support.RequestContextUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
@@ -46,6 +49,11 @@ public class BaseController {
 
     public <T> T messageResponseEntity(Object message, HttpStatus httpStatus) {
         return (T) new ResponseEntity("{\"message\": \"" + message + "\"}", httpStatus);
+    }
+
+    public <T> T messageResponseEntity(BindingResult result, HttpStatus httpStatus) {
+        String message = result.getAllErrors().stream().map(error -> error.getDefaultMessage()).reduce((error1, error2) -> error1 + "、" + error2).get();
+        return messageResponseEntity(message, httpStatus);
     }
 
 }

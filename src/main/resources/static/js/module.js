@@ -19,12 +19,12 @@ var app = angular.module('app', ['ngResource', 'ngRoute', 'ng-showdown', 'blog',
             , trickleRate: 0.05, trickleSpeed: 800
         });
 
-        $('body').on("mouseenter", ".btn", function () {
+        $('body').on("mouseenter", ".btn:not([disabled])", function () {
             $(this).find(".glyphicon").transition({
                 rotate: '360deg'
             }, 200);
 
-        }).on("mouseleave", ".btn", function () {
+        }).on("mouseleave", ".btn:not([disabled])", function () {
             $(this).find(".glyphicon").transition({
                 rotate: '0deg'
             }, 200);
@@ -53,10 +53,8 @@ var app = angular.module('app', ['ngResource', 'ngRoute', 'ng-showdown', 'blog',
             next.$$route && ($rootScope.path = next.$$route.originalPath);
 
             $("#mainWrapper").stop(false, true)
-                .css({opacity: 0, x: -400, rotateY: '-70deg', scale: '1'})
-                .transition({
-                    opacity: 1, x: 0, rotateY: '0deg', scale: '1'
-                }, 500, 'ease', function () {
+                .css({opacity: 0, x: -400, rotateY: '-70deg'})
+                .transition({opacity: 1, x: 0, rotateY: '0deg', duration: 500, ease: 'ease'}, function () {
                     $("#mainWrapper").removeAttr("style");
                 });
         });

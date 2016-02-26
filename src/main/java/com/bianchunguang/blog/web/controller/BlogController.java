@@ -29,20 +29,20 @@ public class BlogController extends BaseController {
     public ResponseEntity<Page<Blog>> getBlogs(@RequestParam Map<String, String> requestParamMap, @PageableDefault Pageable pageable) {
         User user = userService.findByAccount(requestParamMap.get("username"));
 
-        if (user == null) {
-            return messageResponseEntity("There is no user with username : " + requestParamMap.get("username"), HttpStatus.BAD_REQUEST);
+        if (user == null || !user.isEnabled() || !user.isActivated()) {
+            return messageResponseEntity("无效用户 : " + requestParamMap.get("username"), HttpStatus.BAD_REQUEST);
         }
 
         Page<Blog> blogs = blogService.findByAuthor(user, pageable);
         blogs.getContent().stream().forEach(blog -> {
             String content = blog.getContent();
-            blog.setContent(content.length() > 400 ? content.substring(0, 400) : content);
+            blog.setContent(content.length() > 400 ? content.substring(0, 400) + " ..." : content);
         });
 
         return new ResponseEntity(blogs, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "{id}", method = RequestMethod.GET)
     public ResponseEntity<Blog> getBlog(@PathVariable UUID id) {
         return new ResponseEntity(blogService.findOne(id), HttpStatus.OK);
     }
@@ -51,7 +51,7 @@ public class BlogController extends BaseController {
     public ResponseEntity<Blog> createBlog(@AuthenticationPrincipal org.springframework.security.core.userdetails.User principal, @RequestBody @Valid Blog blog, BindingResult result) {
 
         if (result.getErrorCount() > 0) {
-            return messageResponseEntity(result.getAllErrors().stream().map(error -> error.getDefaultMessage()).reduce((error1, error2) -> error1 + "," + error2).get(), HttpStatus.BAD_REQUEST);
+            return messageResponseEntity(result, HttpStatus.BAD_REQUEST);
         }
 
         User user = userService.findByAccount(principal.getUsername());
