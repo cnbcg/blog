@@ -120,6 +120,10 @@ a:focus, a:hover {
     text-shadow: 0px 1px 2px #555;
 }
 
+.btn-text {
+    padding: 0px;
+}
+
 .btn-default:hover, .btn-default:active {
     background-color: #099 !important;
 }

@@ -13,6 +13,19 @@ var app = angular.module('app', ['ngResource', 'ngRoute', 'ng-showdown', 'blog',
     })
     .run(function ($rootScope, $location, authenticationService, messageService) {
 
+        (function breathingLights() {
+            $(".navbar-brand").transition({
+                color: '#777',
+                textShadow: '0px 0px 0px #34302d'
+
+            }, 2000).transition({
+                color: '#0CC',
+                textShadow: '0px 0px 15px #0FF'
+            }, 2000);
+
+            setTimeout(breathingLights, 4000);
+        }());
+
         NProgress.configure({
             minimum: 0.2
             , ease: 'ease', speed: 500

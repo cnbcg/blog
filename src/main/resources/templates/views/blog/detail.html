@@ -3,12 +3,16 @@
         <blog blog="blog" comment-count="paginationBlogComments.totalElements">正在加载数据...</blog>
 
         <div class="commentWrapper" ng-controller="BlogCommentController">
-            <div class="title"><span class="glyphicon glyphicon-comment" aria-hidden="true"></span> 评论</div>
+            <div class="title"><span class="glyphicon glyphicon-comment" aria-hidden="true"></span> Comments</div>
 
             <comment comment="blogComment" reply="reply(comment)" delete="delete(comment)" ng-repeat="blogComment in paginationBlogComments.content"></comment>
             <pagination page-now="paginationBlogComments.number" page-count="paginationBlogComments.totalPages" select-page="selectPage(pageNow)"></pagination>
 
-            <div id="commentParent" ng-show="blogComment.parent != null" class="reply">回复: <a class="pull-right" href="#" ng-click="blogComment.parent = null">删除</a><comment comment="blogComment.parent" replay="reply(comment)" delete="delete(comment)"></comment></div>
+            <div id="commentParent" ng-show="blogComment.parent != null" class="comment">
+                <span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span> 回复:
+                <a class="btn btn-text pull-right" href="#" ng-click="blogComment.parent = null"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> 删除</a>
+                <comment comment="blogComment.parent" replay="reply(comment)" delete="delete(comment)"></comment>
+            </div>
             <form name="blogCommentEditForm" class="form-horizontal" ng-submit="createBlogComment(blog, blogComment)" novalidate="novalidate">
                 <div class="form-group">
                     <div class="col-sm-12">

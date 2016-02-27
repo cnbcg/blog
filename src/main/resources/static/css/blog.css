@@ -49,15 +49,15 @@
     border-top: 1px dashed #eee;
 }
 
-.comment-content .comment {
+.comment .comment {
     margin: 5px 0px;
     border-top: none;
-    box-shadow: 0px 1px 5px #ddd;
+    box-shadow: 0px 1px 3px #ddd;
     padding: 5px 10px;
     background-color: #fefef9;
 }
 
-.comment-content .comment .tools {
+.comment .comment .tools {
     display: none !important;
 }
 
@@ -81,11 +81,4 @@
 
 .comment-meta {
     color: #999;
-}
-
-.reply {
-    border-left: 2px solid #0cc;
-    background-color: #fafafa;
-    padding: 10px;
-    margin-bottom: 5px;
 }

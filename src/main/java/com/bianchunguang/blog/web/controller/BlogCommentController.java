@@ -72,8 +72,7 @@ public class BlogCommentController extends BaseController {
 
         blogComment.getChildren().stream().forEach(childComment -> childComment.setParent(blogComment.getParent()));
 
-        blogComment.setEnabled(false);
-        blogCommentService.save(blogComment);
+        blogCommentService.delete(blogComment.getId());
 
         return new ResponseEntity(blogComment, HttpStatus.OK);
     }

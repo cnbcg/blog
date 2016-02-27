@@ -22,6 +22,7 @@ blog.directive("blog", function () {
         },
         replace: true,
         link: function ($scope, element) {
+            console.log($scope.comment);
             if ($scope.comment && $scope.comment.parent) {
                 element.find(".comment-content").prepend($compile('<comment comment="comment.parent" reply="reply(comment)"></comment>')($scope));
             }

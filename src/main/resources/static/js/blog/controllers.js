@@ -35,6 +35,7 @@ blog.controller('BlogListController', function ($scope, messageService, BLOG_USE
     $scope.delete = function (comment) {
         BlogComments.delete({blogId: $scope.blog.id},{id: comment.id}, function (dbBlogComment) {
             $scope.selectPage();
+            if ($scope.blogComment.parent && $scope.blogComment.parent.id === comment.id)  $scope.blogComment.parent = null;
             messageService.showSuccessMessage("删除成功");
         });
     };
