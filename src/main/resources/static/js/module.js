@@ -1,6 +1,6 @@
 'use strict';
-var app = angular.module('app', ['ngResource', 'ngRoute', 'ng-showdown', 'blog', 'user'])
-    .value('BLOG_USERNAME', 'cnbcg')
+var app = angular.module('app', ['ngResource', 'ngRoute', 'ng-showdown', 'blog', 'user', 'admin'])
+    .value('BLOG_USERNAME', 'admin')
     .config(function ($locationProvider, $httpProvider) {
         $httpProvider.defaults.headers.common['DNR'] = '1';
         $locationProvider.html5Mode(true).hashPrefix('!');
@@ -8,8 +8,8 @@ var app = angular.module('app', ['ngResource', 'ngRoute', 'ng-showdown', 'blog',
 
     }).config(function ($routeProvider) {
         $routeProvider.otherwise({
-            redirectTo: '/blogs'
-        });
+                redirectTo: '/blogs'
+            });
     })
     .run(function ($rootScope, $location, authenticationService, messageService) {
 
@@ -55,7 +55,7 @@ var app = angular.module('app', ['ngResource', 'ngRoute', 'ng-showdown', 'blog',
 
             if (authority && authority === 'user' && !authenticationService.isAuthenticated()) {
                 messageService.showErrorMessage("权限不足，请登录");
-                authenticationService.setRememberedRequest(next.$$route.originalPath);
+                authenticationService.setRememberedRequest($location.url());
                 $location.path('login');
                 return;
             }
@@ -66,14 +66,10 @@ var app = angular.module('app', ['ngResource', 'ngRoute', 'ng-showdown', 'blog',
             next.$$route && ($rootScope.path = next.$$route.originalPath);
 
             $("#mainWrapper").stop(false, true)
-                .css({opacity: 0, x: -400, rotateY: '-70deg'})
-                .transition({opacity: 1, x: 0, rotateY: '0deg', duration: 500, ease: 'ease'}, function () {
+                .css({opacity: 0, x: -400, rotateY: '-75deg'})
+                .transition({opacity: 1, x: 0, rotateY: '0deg'}, function () {
                     $("#mainWrapper").removeAttr("style");
                 });
-        });
-
-        $rootScope.$on('$routeChangeError', function (event, next, current) {
-            messageService.showErrorMessage("无法加载页面");
         });
 
     }).factory('progressInterceptor', function ($q, messageService) {

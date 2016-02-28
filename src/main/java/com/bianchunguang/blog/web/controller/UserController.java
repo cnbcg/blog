@@ -46,10 +46,6 @@ public class UserController extends BaseController {
             return messageResponseEntity("用户名已存在", HttpStatus.BAD_REQUEST);
         }
 
-        if (userService.findByAccount(user.getUsername()) != null) {
-            return messageResponseEntity("用户名已存在", HttpStatus.BAD_REQUEST);
-        }
-
         if (user.getPassword() == null || !user.getPassword().matches("^.*(?=.*\\d)(?=.*[a-zA-Z]).*")) {
             return messageResponseEntity("密码需同时包含字母和数字，长度6到16位", HttpStatus.BAD_REQUEST);
         }
@@ -59,8 +55,8 @@ public class UserController extends BaseController {
         }
 
         user.setActivateCode(UUIDGenerator.generateUUID());
-        user.setAuthorities(Arrays.asList(authorityService.findByAuthorityType(Authority.AuthorityType.USER)));
         user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setAuthorities(Arrays.asList(authorityService.findByAuthorityType(userService.count() == 0 ? Authority.AuthorityType.ADMIN : Authority.AuthorityType.USER)));
         userService.save(user);
 
         Map<String, Object> mailContentVariablesMap = new HashMap<>();

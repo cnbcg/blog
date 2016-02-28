@@ -7,26 +7,7 @@
         <pagination page-now="paginationBlog.number" page-count="paginationBlog.totalPages" select-page="selectPage(pageNow)"></pagination>
     </div>
     <div class="col-md-3">
-        <div class="sidebar">
-            <div class="sidebar-title">个人资料</div>
-            <div class="sidebar-content">
-                <div class="sidebar-profile">
-                    <img class="sidebar-profile-avatar" th:src="@{/images/avatar.jpg}"/>
-                    <div class="sidebar-profile-name">bcg</div>
-                    <div class="sidebar-profile-desc">码农一枚，身在大连，专注于高可用及大数据方向，现就职于BCG集团，担任技术总监。</div>
-                </div>
-            </div>
-        </div>
-        <div class="sidebar">
-            <div class="sidebar-title">操作</div>
-            <div class="sidebar-content">
-                <div class="sidebar-menu">
-                    <a class="sidebar-menu-item {{path == '/newblog' ? 'active' : ''}}" href="newblog"
-                       th:text="#{nav.sidebar.newblog}">写博客</a>
-                    <a class="sidebar-menu-item" th:text="#{nav.sidebar.newalbum}">新建相册</a>
-                </div>
-            </div>
-        </div>
+        <div th:include="fragments/layout :: fragment-sidebar" th:remove="tag"></div>
     </div>
 
 </div>

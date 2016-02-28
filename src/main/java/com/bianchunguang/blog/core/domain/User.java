@@ -2,10 +2,13 @@ package com.bianchunguang.blog.core.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -116,5 +119,9 @@ public class User extends AbstractEntity {
 
     public void setBlogComments(List<BlogComment> blogComments) {
         this.blogComments = blogComments;
+    }
+
+    public boolean hasAuthority(Authority.AuthorityType authorityType) {
+        return getAuthorities().stream().filter(authority -> authority.getAuthorityType() == authorityType).findFirst().isPresent();
     }
 }

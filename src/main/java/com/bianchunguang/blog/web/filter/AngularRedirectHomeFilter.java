@@ -46,6 +46,7 @@ public class AngularRedirectHomeFilter extends OncePerRequestFilter {
 				|| requestURI.endsWith(".png") 
 				|| requestURI.endsWith(".jpeg")
 				|| requestURI.endsWith(".jpg")
+				|| requestURI.endsWith(".ico")
 				|| requestURI.endsWith(".eot")
 				|| requestURI.endsWith(".svg")
 				|| requestURI.endsWith(".ttf")

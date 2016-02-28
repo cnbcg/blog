@@ -39,7 +39,7 @@
                 <ul class="nav navbar-nav">
                     <li class="{{path == '/blogs' ? 'active' : ''}}"><a href="blogs"
                                                                         th:text="#{nav.headbar.blog}">博客</a></li>
-                    <li class="{{path == '/album' ? 'active' : ''}}"><a th:text="#{nav.headbar.album}">相册</a></li>
+                    <li class="hidden {{path == '/album' ? 'active' : ''}}"><a th:text="#{nav.headbar.album}">相册</a></li>
                     <li class="{{path == '/about' ? 'active' : ''}}"><a href="" th:text="#{nav.headbar.about}">关于</a>
                     </li>
                 </ul>
@@ -102,6 +102,30 @@
     </footer>
 </div>
 
+
+<div th:fragment="fragment-sidebar">
+    <div class="sidebar">
+        <div class="sidebar-title">个人资料</div>
+        <div class="sidebar-content">
+            <div class="sidebar-profile">
+                <img class="sidebar-profile-avatar" th:src="@{/images/avatar.jpg}"/>
+                <div class="sidebar-profile-name">bcg</div>
+                <div class="sidebar-profile-desc">码农一枚，身在大连，专注于高可用及大数据方向，现就职于BCG集团，担任技术总监。</div>
+            </div>
+        </div>
+    </div>
+    <div class="sidebar" ng-cloak="" ng-show="authenticationService.isAuthenticated()">
+        <div class="sidebar-title">操作</div>
+        <div class="sidebar-content">
+            <div class="sidebar-menu">
+                <a class="sidebar-menu-item {{path == '/blogs/new' ? 'active' : ''}}" href="blogs/new" th:text="#{nav.sidebar.newblog}">写博客</a>
+                <a class="sidebar-menu-item {{path == '/management' ? 'active' : ''}}" href="{{authenticationService.authUser().username}}/management">后台管理</a>
+                <a class="sidebar-menu-item hidden" th:text="#{nav.sidebar.newalbum}">新建相册</a>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div th:fragment="fragment-js">
     <script th:src="@{/lib/jquery-2.2.0.min.js}"></script>
     <script th:src="@{/lib/nprogress/nprogress.js}"></script>
@@ -124,6 +148,8 @@
     <script th:src="@{/js/user/module.js}"></script>
     <script th:src="@{/js/user/controllers.js}"></script>
     <script th:src="@{/js/user/services.js}"></script>
+    <script th:src="@{/js/admin/module.js}"></script>
+    <script th:src="@{/js/admin/controllers.js}"></script>
 </div>
 
 </body>

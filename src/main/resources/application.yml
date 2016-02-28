@@ -38,5 +38,5 @@ logging:
 #----------------------------------------------------------------------
 
 ui:
-  local: en_US
+  local: zh_CN
   theme: horizontal

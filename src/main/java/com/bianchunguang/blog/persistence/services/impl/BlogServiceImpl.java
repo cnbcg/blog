@@ -29,4 +29,9 @@ public class BlogServiceImpl extends AbstractServiceImpl<Blog, UUID> implements 
     public Page<Blog> findByAuthor(User author, Pageable pageable) {
         return blogRepository.findByAuthor(author, pageable);
     }
+
+    @Override
+    public void increaseViewCount(UUID id) {
+        blogRepository.increaseViewCount(id);
+    }
 }

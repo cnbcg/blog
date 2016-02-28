@@ -1,13 +1,18 @@
-<div class="blog">
+<div class="blog" ng-mouseenter="hover = true" ng-mouseleave="hover = false">
     <div class="blog--head">
         <div class="blog--head-title">
             <h2><a href="blogs/{{blog.id}}">{{blog.title}}</a></h2>
+
+            <div ng-class="{active: hover}" class="tools">
+                <a class="tools-item btn btn-text" href="#" ng-click="edit({blog : blog})"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> 修改</a>
+                <a class="tools-item btn btn-text" href="#" ng-click="delete({blog : blog})"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> 删除</a>
+            </div>
             <div class="blog--head-meta">
                 <span class="blog--head-meta-item"><a href="{{blog.author.username}}">{{blog.author.nickname}}</a> @ {{blog.createdDate | date: 'yyyy-MM-dd HH:mm:ss' }} </span>/
                 <span class="blog--head-meta-item">{{blog.commentCount}} 评论</span> /
-                <span class="blog--head-meta-item">{{blog.viewCount}} 观看</span>
+                <span class="blog--head-meta-item">{{blog.viewCount}} 浏览</span>
             </div>
         </div>
     </div>
-    <div class="blog-content" markdown-to-html="blog.content | stripHtml"/>
+    <div class="blog-content" markdown-to-html="blog.content"/>
 </div>

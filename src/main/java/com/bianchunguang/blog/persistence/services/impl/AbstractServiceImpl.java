@@ -1,13 +1,16 @@
 package com.bianchunguang.blog.persistence.services.impl;
 
 import com.bianchunguang.blog.persistence.services.AbstractService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Service;
 
 import java.io.Serializable;
 import java.util.List;
 
 public abstract class AbstractServiceImpl<T, ID extends Serializable> implements AbstractService<T, ID> {
+
+    protected abstract JpaRepository<T, ID> getRepository();
 
     @Override
     public <S extends T> S save(S entity) {
@@ -30,6 +33,11 @@ public abstract class AbstractServiceImpl<T, ID extends Serializable> implements
     }
 
     @Override
+    public Page<T> findAll(Pageable pageable) {
+        return getRepository().findAll(pageable);
+    };
+
+    @Override
     public void delete(ID id) {
         getRepository().delete(id);
     }
@@ -39,6 +47,9 @@ public abstract class AbstractServiceImpl<T, ID extends Serializable> implements
         getRepository().deleteAll();
     }
 
-    protected abstract JpaRepository<T, ID> getRepository();
+    @Override
+    public long count() {
+        return getRepository().count();
+    }
 
 }

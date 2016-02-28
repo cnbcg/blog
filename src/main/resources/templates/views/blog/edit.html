@@ -3,7 +3,7 @@
 </div>
 <div class="row">
     <div class="col-sm-6">
-        <form name="blogEditForm" class="form-horizontal" ng-submit="createBlog(blog)" novalidate="novalidate">
+        <form name="blogEditForm" class="form-horizontal" novalidate="novalidate">
             <div class="form-group">
                 <div class="col-sm-12">
                     <input type="text" class="form-control" id="blog_title" ng-model="blog.title" placeholder="请输入文章标题" required="" />
@@ -12,12 +12,12 @@
             <div class="form-group">
                 <div class="col-sm-12">
                     <textarea id="blog_content" class="form-control" ng-model="blog.content" rows="20" placeholder="请输入文章正文" required=""></textarea>
-                    <div>{{blog.content.length}} / 20000</div>
                 </div>
             </div>
             <div class="form-group">
                 <div class="col-sm-12">
-                    <button type="submit" class="btn btn-default" ><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> 保存</button>
+                    <span class="badge pull-right">{{blog.content.length}} / 20000</span>
+                    <button class="btn btn-default" ng-click="createBlog(blog)"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> 保存</button>
                     <button class="btn btn-default" ng-click="cancel()"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> 取消</button>
                 </div>
             </div>

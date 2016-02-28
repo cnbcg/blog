@@ -11,4 +11,6 @@ import java.util.UUID;
 public interface BlogService extends AbstractService<Blog, UUID> {
 
     Page<Blog> findByAuthor(User author, Pageable pageable);
+
+    void increaseViewCount(UUID id);
 }

@@ -6,27 +6,12 @@
     margin: 10px 0px;
 }
 
-.blog .blog--head .blog--head-title {
-    color: #099;
-}
-
-.blog .blog--head-meta {
-    color: #ccc;
-}
-
 .blog .blog--head-meta .blog--head-meta-item {
     color: #aaa;
     margin-right: 5px;
 }
 
-.blog .blog-content {
-    color: #333;
-    width: 100%;
-    word-break: break-all;
-}
-
 .blog .blog-content img {
-    height: 100%;
     width: 100%;
 }
 
@@ -57,14 +42,13 @@
     background-color: #fefef9;
 }
 
-.comment .comment .tools {
+.comment .comment .tools, #blogListContainer .tools {
     display: none !important;
 }
 
 .tools {
     z-index: 2;
-    position: absolute;
-    right: 0px;
+    float: right;
 }
 
 .tools .tools-item {
@@ -80,5 +64,5 @@
 }
 
 .comment-meta {
-    color: #999;
+    color: #aaa;
 }

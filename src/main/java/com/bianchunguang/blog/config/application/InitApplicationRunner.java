@@ -22,13 +22,16 @@ import java.util.Map;
 @Profile({"develop"})
 public class InitApplicationRunner implements ApplicationRunner {
 
-    private @Autowired UserService userService;
-    private @Autowired BlogService blogService;
-    private @Autowired PasswordEncoder passwordEncoder;
     private @Autowired AuthorityService authorityService;
-    private @Autowired EmailSender emailSender;
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
+        if (authorityService.count() == 0) {
+            Authority authorityAdmin = new Authority();
+            authorityAdmin.setAuthorityType(Authority.AuthorityType.ADMIN);
+            Authority authorityUser = new Authority();
+            authorityUser.setAuthorityType(Authority.AuthorityType.USER);
+            authorityService.save(Arrays.asList(authorityAdmin, authorityUser));
+        }
     }
 }

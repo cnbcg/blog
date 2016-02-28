@@ -9,10 +9,32 @@ var blog = angular.module('blog', [])
                 resolve: {
                     paginationBlog: function ($q, Blogs, BLOG_USERNAME) {
                         var defer = $q.defer();
-                        Blogs.paginationQuery({username: BLOG_USERNAME}, function(data) {
+                        Blogs.paginationQuery({username: BLOG_USERNAME}, function (data) {
                             defer.resolve(data);
 
-                        }, function(data) {
+                        }, function (data) {
+                            defer.reject(data);
+                        });
+                        return defer.promise;
+                    }
+                }
+            })
+            .when('/blogs/new', {
+                templateUrl: 'views-blog-edit',
+                controller: 'BlogNewController',
+                authority: 'user'
+            })
+            .when('/blogs/edit/:id', {
+                templateUrl: 'views-blog-edit',
+                controller: 'BlogEditController',
+                authority: 'user',
+                resolve: {
+                    blog: function ($route, $q, messageService, Blogs) {
+                        var defer = $q.defer();
+                        Blogs.get({id: $route.current.params.id}, function (data) {
+                            defer.resolve(data);
+
+                        }, function (data) {
                             defer.reject(data);
                         });
                         return defer.promise;
@@ -25,19 +47,14 @@ var blog = angular.module('blog', [])
                 resolve: {
                     blog: function ($route, $q, messageService, Blogs) {
                         var defer = $q.defer();
-                        Blogs.get({id: $route.current.params.id}, function(data) {
+                        Blogs.get({id: $route.current.params.id}, function (data) {
                             defer.resolve(data);
 
-                        }, function(data) {
+                        }, function (data) {
                             defer.reject(data);
                         });
                         return defer.promise;
                     }
                 }
-            })
-            .when('/newblog', {
-                templateUrl: 'views-blog-edit',
-                controller: 'BlogEditController',
-                authority: 'user'
             });
     });

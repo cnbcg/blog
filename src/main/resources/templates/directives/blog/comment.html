@@ -1,5 +1,5 @@
-<div class="comment" ng-mouseenter="hover = true" ng-mouseleave="hover = false" ng-click="hover || (selected = !selected)">
-    <div ng-class="{active: hover || selected}" class="tools pull-right">
+<div class="comment" ng-mouseenter="hover = true" ng-mouseleave="hover = false">
+    <div ng-class="{active: hover}" class="tools">
         <a class="tools-item btn btn-text" href="#" ng-click="reply({comment : comment})"><span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span> 回复</a>
         <a class="tools-item btn btn-text" href="#" ng-click="delete({comment : comment})"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> 删除</a>
     </div>

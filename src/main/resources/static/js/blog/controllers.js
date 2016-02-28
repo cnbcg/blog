@@ -7,7 +7,21 @@ blog.controller('BlogListController', function ($scope, messageService, BLOG_USE
         $scope.paginationBlog = Blogs.paginationQuery({username: BLOG_USERNAME, page: pageNow});
     };
 
-}).controller('BlogEditController', function ($scope, $location, Blogs, messageService) {
+}).controller('BlogDetailController', function ($scope, $location, messageService, Blogs, blog) {
+    $scope.blog = blog;
+
+    $scope.edit = function(blog) {
+        $location.path('/blogs/edit/' + blog.id);
+    };
+
+    $scope.delete = function (blog) {
+        Blogs.delete({id: blog.id}, function (dbBlog) {
+            messageService.showSuccessMessage("删除成功");
+            $location.path('blogs');
+        });
+    };
+
+}).controller('BlogNewController', function ($scope, $location, Blogs, messageService) {
 
     $scope.blog = {author: {nickname: "test"}, createdDate: new Date(), content: "", commentCount: 0, viewCount: 0};
 
@@ -18,8 +32,16 @@ blog.controller('BlogListController', function ($scope, messageService, BLOG_USE
         });
     };
 
-}).controller('BlogDetailController', function ($scope, blog) {
+}).controller('BlogEditController', function ($scope, $location, messageService, blog) {
+
     $scope.blog = blog;
+
+    $scope.createBlog = function (blog) {
+        blog.$update(function (dbBlog) {
+            messageService.showSuccessMessage("保存成功");
+            $location.path('blogs/' + blog.id);
+        });
+    };
 
 }).controller('BlogCommentController', function ($scope, $location, $anchorScroll, BlogComments, messageService) {
 
@@ -32,10 +54,11 @@ blog.controller('BlogListController', function ($scope, messageService, BLOG_USE
         $anchorScroll("commentParent");
     };
 
-    $scope.delete = function (comment) {
-        BlogComments.delete({blogId: $scope.blog.id},{id: comment.id}, function (dbBlogComment) {
-            $scope.selectPage();
+    $scope.delete = function (blog, comment) {
+        BlogComments.delete({blogId: blog.id},{id: comment.id}, function (dbBlogComment) {
+            blog.commentCount--;
             if ($scope.blogComment.parent && $scope.blogComment.parent.id === comment.id)  $scope.blogComment.parent = null;
+            $scope.selectPage();
             messageService.showSuccessMessage("删除成功");
         });
     };
@@ -45,6 +68,7 @@ blog.controller('BlogListController', function ($scope, messageService, BLOG_USE
 
     $scope.createBlogComment = function (blog, blogComment) {
         BlogComments.save({blogId: $scope.blog.id}, blogComment, function (dbBlogComment) {
+            blog.commentCount++;
             $scope.blogComment = {content: ""};
             $scope.selectPage();
             messageService.showSuccessMessage("保存成功");

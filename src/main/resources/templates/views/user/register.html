@@ -1,7 +1,7 @@
 <div class="content-title">
     <span class="glyphicon glyphicon-user" aria-hidden="true"></span> 用户注册
 </div>
-<form name="registerForm" class="form-horizontal" role="form" novalidate="novalidate" ng-submit="register(user)">
+<form name="registerForm" class="form-horizontal" role="form" novalidate="novalidate">
 
     <div class="form-group">
         <label for="email" class="col-sm-2 control-label">邮箱</label>
@@ -41,7 +41,7 @@
     </div>
     <div class="form-group">
         <div class="col-sm-offset-2 col-sm-10">
-            <button type="submit" class="btn btn-default" ng-disabled="!registerForm.$valid"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> 注册</button>
+            <button class="btn btn-default" ng-click="register(user)" ng-disabled="!registerForm.$valid"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> 注册</button>
             <button class="btn btn-default" ng-click="cancel()"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> 取消</button>
         </div>
     </div>

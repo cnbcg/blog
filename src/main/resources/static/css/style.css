@@ -5,12 +5,12 @@ html {
 
 body {
     font-family: "Arial", "Microsoft YaHei", "黑体", "宋体", sans-serif;
-    background: #fff;
     margin-bottom: 207px;
+    word-break: break-all;
 }
 
 *:not(#mainWrapper) {
-    transition: all 0.2s ease-in
+    transition: all 0.2s ease-in;
 }
 
 a {
@@ -18,8 +18,7 @@ a {
 }
 
 a:focus, a:hover {
-    color: #d82;
-    text-decoration: underline;
+    color: #f82;
 }
 
 [ng-cloak],
@@ -39,7 +38,7 @@ a:focus, a:hover {
     border: 0px;
     border-radius: 0px;
     z-index: 998;
-    box-shadow: 0px 0px 20px #aaa;
+    box-shadow: 0px 0px 15px #aaa;
 }
 
 #message.alert-success {
@@ -94,12 +93,8 @@ a:focus, a:hover {
 
 .sidebar .sidebar-menu-item:hover, .sidebar .sidebar-menu-item.active {
     background: #000;
-    color: #fff;
+    color: #0cc;
     text-decoration: none;
-}
-
-#mainWrapper {
-    background: #fff;
 }
 
 #main .content-title {
@@ -121,7 +116,9 @@ a:focus, a:hover {
 }
 
 .btn-text {
-    padding: 0px;
+    border: 1px solid #eee;
+    border-radius: 20px;
+    padding: 0px 7px;
 }
 
 .btn-default:hover, .btn-default:active {
@@ -140,7 +137,6 @@ a:focus, a:hover {
 form[name="loginForm"], form[name="registerForm"] {
     max-width: 800px;
     margin: 20px;
-    border-radius: 0px;
 }
 
 .form-control {
@@ -149,10 +145,12 @@ form[name="loginForm"], form[name="registerForm"] {
 
 .form-control:hover, .form-control:focus, .form-control:active {
     border-color: #0cc;
+    box-shadow: 0px 0px 5px #cee;
 }
 
 .form-control.ng-dirty.ng-invalid {
     border-color: #f50;
+    box-shadow: 0px 0px 5px #fcc;
 }
 
 .control-desc {

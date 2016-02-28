@@ -5,27 +5,27 @@ import org.springframework.beans.BeanUtils;
 
 public class BlogVO extends Blog {
 
-    private int commentCount;
-    private int viewCount;
+    private long commentCount;
+    private long viewCount;
 
     public BlogVO(Blog blog) {
         BeanUtils.copyProperties(blog, this);
         this.setCommentCount(blog.getBlogComments().size());
     }
 
-    public int getCommentCount() {
+    public long getCommentCount() {
         return commentCount;
     }
 
-    public void setCommentCount(int commentCount) {
+    public void setCommentCount(long commentCount) {
         this.commentCount = commentCount;
     }
 
-    public int getViewCount() {
+    public long getViewCount() {
         return viewCount;
     }
 
-    public void setViewCount(int viewCount) {
+    public void setViewCount(long viewCount) {
         this.viewCount = viewCount;
     }
 

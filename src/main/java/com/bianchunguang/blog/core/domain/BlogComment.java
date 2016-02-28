@@ -23,7 +23,7 @@ public class BlogComment extends AbstractEntity {
     private Blog blog;
 
     @OneToMany(mappedBy = "parent")
-    private List<BlogComment> children = new ArrayList();
+    private List<BlogComment> children = new ArrayList<>();
 
     @ManyToOne
     private BlogComment parent;

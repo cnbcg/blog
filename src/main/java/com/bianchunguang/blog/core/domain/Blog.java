@@ -25,7 +25,9 @@ public class Blog extends AbstractEntity {
     private User author;
 
     @OneToMany(mappedBy = "blog", orphanRemoval = true)
-    private List<BlogComment> blogComments = new ArrayList();
+    private List<BlogComment> blogComments = new ArrayList<>();
+
+    private long viewCount;
 
     public String getTitle() {
         return title;
@@ -58,4 +60,13 @@ public class Blog extends AbstractEntity {
     public void setBlogComments(List<BlogComment> blogComments) {
         this.blogComments = blogComments;
     }
+
+    public long getViewCount() {
+        return viewCount;
+    }
+
+    public void setViewCount(long viewCount) {
+        this.viewCount = viewCount;
+    }
+
 }

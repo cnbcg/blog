@@ -16,12 +16,12 @@ public class Authority extends AbstractEntity {
         USER, ADMIN
     }
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     @Enumerated(EnumType.STRING)
     private AuthorityType authorityType;
 
     @ManyToMany(mappedBy = "authorities")
-    private List<User> user = new ArrayList<User>();
+    private List<User> user = new ArrayList<>();
 
     public AuthorityType getAuthorityType() {
         return authorityType;

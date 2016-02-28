@@ -7,7 +7,7 @@ user.controller('UserLoginController', function ($scope) {
 }).controller('UserRegisterController', function ($scope, $location, Users, messageService) {
     $scope.register = function (user) {
         Users.save(user, function(dbUser) {
-            messageService.showMessage("注册成功, 请查看邮件激活账号。");
+            messageService.showSuccessMessage("注册成功, 请查看邮件激活账号。");
             $location.path('login');
         });
     };
