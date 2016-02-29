@@ -6,10 +6,11 @@ var admin = angular.module('admin', [])
             .when("/:username/management", {
                 templateUrl: 'views-admin-management',
                 controller: 'ManagementController',
+                authority: 'auth',
                 resolve: {
                     paginationBlog: function ($q, authenticationService, Blogs) {
                         var defer = $q.defer();
-                        Blogs.paginationQuery({username: authenticationService.authUser().username}, function (data) {
+                        Blogs.paginationQuery({userId: authenticationService.authUser().id}, function (data) {
                             defer.resolve(data);
 
                         }, function (data) {
@@ -19,7 +20,7 @@ var admin = angular.module('admin', [])
                     },
                     paginationBlogComments: function ($q, authenticationService, BlogComments) {
                         var defer = $q.defer();
-                        BlogComments.paginationQuery(function (data) {
+                        BlogComments.paginationQuery({userId: authenticationService.authUser().id}, function (data) {
                             defer.resolve(data);
 
                         }, function (data) {

@@ -2,47 +2,39 @@ package com.bianchunguang.blog.config.security;
 
 import com.bianchunguang.blog.core.domain.User;
 import com.bianchunguang.blog.persistence.services.UserService;
+import com.bianchunguang.blog.web.vo.UserVO;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
-import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
-
-import java.util.stream.Collectors;
+import org.springframework.util.Assert;
 
 @Configuration
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 @Order(SecurityProperties.ACCESS_OVERRIDE_ORDER)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private @Autowired UserService userService;
 
+    @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                // 开放静态资源
-                .antMatchers("/lib/**", "/themes/**").permitAll()
-                // 开放公共视图
-                .antMatchers("/", "/view**", "/directives**").permitAll()
-                .antMatchers(HttpMethod.GET, "/blogs", "/blogs/*", "/blogs/*/comments").permitAll()
-                .antMatchers(HttpMethod.POST, "/users").permitAll()
-                .antMatchers(HttpMethod.PUT, "/users/activate/*").permitAll()
-                .anyRequest().authenticated()
                 .and().formLogin().failureHandler(authenticationFailureHandler()).successHandler(authenticationSuccessHandler()).loginPage("/login").permitAll()
                 .and().logout().logoutSuccessHandler(logoutSuccessHandler()).and().csrf().disable();
     }
@@ -82,18 +74,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return account -> {
             User user = userService.findByAccount(account);
 
-            if (user == null || !user.isEnabled()) {
-                throw new UsernameNotFoundException("User not exists");
-            }
+            Assert.notNull(user, "用户不存在");
+            Assert.isTrue(user.isActivated(), "用户未激活");
+            Assert.isTrue(user.isEnabled(), "用户已冻结");
 
-            if (!user.isActivated()) {
-                throw new UsernameNotFoundException("User doesn't activated");
-            }
-
-            return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(),
-                    user.getAuthorities().stream().map(authority ->
-                            (GrantedAuthority) () -> authority.toString()
-                    ).collect(Collectors.toList()));
+            return new UserVO(account, user);
         };
     }
 

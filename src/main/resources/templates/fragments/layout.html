@@ -53,7 +53,7 @@
                     <li ng-cloak="" ng-show="authenticationService.isAuthenticated()" class="dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                            aria-expanded="false"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-                            {{authenticationService.authUser().username}} <span class="caret"></span></a>
+                            {{authenticationService.authUser().nickname}} <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li><a href="profile">Profile</a></li>
                             <li role="separator" class="divider"></li>
@@ -118,8 +118,8 @@
         <div class="sidebar-title">操作</div>
         <div class="sidebar-content">
             <div class="sidebar-menu">
-                <a class="sidebar-menu-item {{path == '/blogs/new' ? 'active' : ''}}" href="blogs/new" th:text="#{nav.sidebar.newblog}">写博客</a>
-                <a class="sidebar-menu-item {{path == '/management' ? 'active' : ''}}" href="{{authenticationService.authUser().username}}/management">后台管理</a>
+                <a class="sidebar-menu-item" href="blogs/new" th:text="#{nav.sidebar.newblog}">写博客</a>
+                <a class="sidebar-menu-item" href="{{authenticationService.authUser().username}}/management">后台管理</a>
                 <a class="sidebar-menu-item hidden" th:text="#{nav.sidebar.newalbum}">新建相册</a>
             </div>
         </div>

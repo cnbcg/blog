@@ -1,32 +1,27 @@
 package com.bianchunguang.blog.web.controller;
 
-import com.bianchunguang.blog.core.domain.Authority;
 import com.bianchunguang.blog.core.domain.User;
+import com.bianchunguang.blog.core.utils.Constants;
 import com.bianchunguang.blog.core.utils.EmailSender;
 import com.bianchunguang.blog.core.utils.StringUtils;
-import com.bianchunguang.blog.core.utils.UUIDGenerator;
-import com.bianchunguang.blog.persistence.services.AuthorityService;
+import com.bianchunguang.blog.persistence.services.RoleService;
 import com.bianchunguang.blog.persistence.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @RestController
 @RequestMapping("/users")
 public class UserController extends BaseController {
 
     private @Autowired UserService userService;
-    private @Autowired AuthorityService authorityService;
+    private @Autowired RoleService roleService;
     private @Autowired EmailSender emailSender;
     private @Autowired PasswordEncoder passwordEncoder;
 
@@ -36,54 +31,36 @@ public class UserController extends BaseController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<User> createUser(@RequestBody @Valid User user, BindingResult result, HttpServletRequest request) {
+    public User createUser(@RequestBody @Valid User user, BindingResult result, HttpServletRequest request) {
 
-        if (userService.findByAccount(user.getEmail()) != null) {
-            return messageResponseEntity("邮箱已存在", HttpStatus.BAD_REQUEST);
-        }
+        Assert.isNull(userService.findByAccount(user.getEmail()), "邮箱已存在");
+        Assert.isTrue(user.getPassword() != null && user.getPassword().matches("^.*(?=.*\\d)(?=.*[a-zA-Z]).*"), "密码需同时包含字母和数字，长度6到16位");
 
-        if (userService.findByAccount(user.getUsername()) != null) {
-            return messageResponseEntity("用户名已存在", HttpStatus.BAD_REQUEST);
-        }
+        assertErrorIsNull(result);
 
-        if (user.getPassword() == null || !user.getPassword().matches("^.*(?=.*\\d)(?=.*[a-zA-Z]).*")) {
-            return messageResponseEntity("密码需同时包含字母和数字，长度6到16位", HttpStatus.BAD_REQUEST);
-        }
-
-        if (result.getErrorCount() > 0) {
-            return messageResponseEntity(result, HttpStatus.BAD_REQUEST);
-        }
-
-        user.setActivateCode(UUIDGenerator.generateUUID());
+        user.setActivateCode(UUID.randomUUID());
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.setAuthorities(Arrays.asList(authorityService.findByAuthorityType(userService.count() == 0 ? Authority.AuthorityType.ADMIN : Authority.AuthorityType.USER)));
-        userService.save(user);
+        user.setRoles(Arrays.asList(roleService.findByCode(userService.count() == 0 ? Constants.Role.ADMIN : Constants.Role.USER)));
 
         Map<String, Object> mailContentVariablesMap = new HashMap<>();
         mailContentVariablesMap.put("activateUrl", StringUtils.getRootUrl(request) + "activate/" + user.getActivateCode());
-        emailSender.sendEmail("[BCG BLOG] User Activation", new String[]{user.getEmail()}, "mail/register_active_token", mailContentVariablesMap);
 
-        return new ResponseEntity(user, HttpStatus.OK);
+        Assert.isTrue(emailSender.sendEmail("[BCG BLOG] User Activation", user.getEmail(), "mail/register_active_token", mailContentVariablesMap), "账户激活邮件发送失败，请确认邮箱重试。");
+
+        return userService.save(user);
     }
 
     @RequestMapping(value = "activate/{activateCode}", method = RequestMethod.PUT)
-    public ResponseEntity<User> activate(@PathVariable String activateCode) {
-        User user = userService.findByActivateCode(UUIDGenerator.valueOf(activateCode));
+    public User activate(@PathVariable String activateCode) {
+        User user = userService.findByActivateCode(UUID.fromString(activateCode));
 
-        if (user == null) {
-            return messageResponseEntity("激活码无效", HttpStatus.BAD_REQUEST);
-
-        } else if (user.isActivated()) {
-            return messageResponseEntity("用户已激活", HttpStatus.BAD_REQUEST);
-
-        } else if (!user.isEnabled()) {
-            return messageResponseEntity("用户已冻结", HttpStatus.BAD_REQUEST);
-        }
+        Assert.notNull(user, "激活码无效");
+        Assert.isTrue(!user.isActivated(), "用户已激活");
 
         user.setActivated(true);
         userService.save(user);
 
-        return new ResponseEntity(user, HttpStatus.OK);
+        return user;
     }
 
 }

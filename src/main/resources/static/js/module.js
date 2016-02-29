@@ -1,6 +1,5 @@
 'use strict';
 var app = angular.module('app', ['ngResource', 'ngRoute', 'ng-showdown', 'blog', 'user', 'admin'])
-    .value('BLOG_USERNAME', 'admin')
     .config(function ($locationProvider, $httpProvider) {
         $httpProvider.defaults.headers.common['DNR'] = '1';
         $locationProvider.html5Mode(true).hashPrefix('!');
@@ -53,7 +52,7 @@ var app = angular.module('app', ['ngResource', 'ngRoute', 'ng-showdown', 'blog',
         $rootScope.$on('$routeChangeStart', function (event, next, current) {
             var authority = next.$$route ? next.$$route.authority : null;
 
-            if (authority && authority === 'user' && !authenticationService.isAuthenticated()) {
+            if (authority && authority === 'auth' && !authenticationService.isAuthenticated()) {
                 messageService.showErrorMessage("权限不足，请登录");
                 authenticationService.setRememberedRequest($location.url());
                 $location.path('login');

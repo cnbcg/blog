@@ -30,6 +30,26 @@
     </div>
 
     <div class="col-md-3">
-        <div th:include="fragments/layout :: fragment-sidebar" th:remove="tag"></div>
+        <div class="sidebar" ng-cloak="" ng-show="authenticationService.isAuthenticated()">
+            <div class="sidebar-title">文章推荐</div>
+            <div class="sidebar-content">
+                <div class="sidebar-menu">
+                    <a class="sidebar-menu-item" href="#" ng-click="edit(blog)">评论文章</a>
+                    <a class="sidebar-menu-item" href="#" ng-click="edit(blog)">编辑文章</a>
+                    <a class="sidebar-menu-item" href="#" ng-click="delete(blog)">删除文章</a>
+                    <a class="sidebar-menu-item" href="blogs/new">新建文章</a>
+                </div>
+            </div>
+        </div>
+        <div class="sidebar" ng-cloak="" ng-show="authenticationService.isAuthenticated()">
+            <div class="sidebar-title">操作</div>
+            <div class="sidebar-content">
+                <div class="sidebar-menu">
+                    <a class="sidebar-menu-item" href="#" ng-click="edit(blog)">编辑文章</a>
+                    <a class="sidebar-menu-item" href="#" ng-click="delete(blog)">删除文章</a>
+                    <a class="sidebar-menu-item" href="blogs/new">新建文章</a>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

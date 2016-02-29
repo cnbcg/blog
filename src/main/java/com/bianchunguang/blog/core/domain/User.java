@@ -1,14 +1,12 @@
 package com.bianchunguang.blog.core.domain;
 
+import com.bianchunguang.blog.core.utils.Constants;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.validator.constraints.Email;
-import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -24,10 +22,6 @@ public class User extends AbstractEntity {
     private String email;
 
     @Column(nullable = false, unique = true)
-    @Pattern(regexp = "^[a-zA-Z]\\w{3,11}$", message = "用户名需字母开头且仅能包含字母数字下划线，长度4到12位")
-    private String username;
-
-    @Column(nullable = false, unique = true)
     @Pattern(regexp = "^[\\u4e00-\\u9fa5a-zA-Z0-9]+$", message = "昵称仅能包含字母数字汉字，长度2到10位")
     private String nickname;
 
@@ -41,7 +35,7 @@ public class User extends AbstractEntity {
     private UUID activateCode;
 
     @ManyToMany
-    private List<Authority> authorities = new ArrayList<>();
+    private List<Role> roles = new ArrayList<>();
 
     @OneToMany(mappedBy = "author", orphanRemoval = true)
     private List<Blog> blogs = new ArrayList<>();
@@ -55,14 +49,6 @@ public class User extends AbstractEntity {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
     }
 
     public String getNickname() {
@@ -97,12 +83,12 @@ public class User extends AbstractEntity {
         this.activateCode = activateCode;
     }
 
-    public List<Authority> getAuthorities() {
-        return authorities;
+    public List<Role> getRoles() {
+        return roles;
     }
 
-    public void setAuthorities(List<Authority> authorities) {
-        this.authorities = authorities;
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
     }
 
     public List<Blog> getBlogs() {
@@ -121,7 +107,7 @@ public class User extends AbstractEntity {
         this.blogComments = blogComments;
     }
 
-    public boolean hasAuthority(Authority.AuthorityType authorityType) {
-        return getAuthorities().stream().filter(authority -> authority.getAuthorityType() == authorityType).findFirst().isPresent();
+    public boolean hasRole(Constants.Role role) {
+        return getRoles().stream().filter(userRole -> userRole.getCode().equals(role.toString())).findFirst().isPresent();
     }
 }

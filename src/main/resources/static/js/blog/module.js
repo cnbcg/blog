@@ -7,9 +7,9 @@ var blog = angular.module('blog', [])
                 templateUrl: 'views-blog-list',
                 controller: 'BlogListController',
                 resolve: {
-                    paginationBlog: function ($q, Blogs, BLOG_USERNAME) {
+                    paginationBlog: function ($q, Blogs) {
                         var defer = $q.defer();
-                        Blogs.paginationQuery({username: BLOG_USERNAME}, function (data) {
+                        Blogs.paginationQuery(function (data) {
                             defer.resolve(data);
 
                         }, function (data) {
@@ -22,12 +22,12 @@ var blog = angular.module('blog', [])
             .when('/blogs/new', {
                 templateUrl: 'views-blog-edit',
                 controller: 'BlogNewController',
-                authority: 'user'
+                authority: 'auth'
             })
             .when('/blogs/edit/:id', {
                 templateUrl: 'views-blog-edit',
                 controller: 'BlogEditController',
-                authority: 'user',
+                authority: 'auth',
                 resolve: {
                     blog: function ($route, $q, messageService, Blogs) {
                         var defer = $q.defer();

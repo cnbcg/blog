@@ -1,10 +1,10 @@
 'use strict';
-blog.controller('BlogListController', function ($scope, messageService, BLOG_USERNAME, Blogs, paginationBlog) {
+blog.controller('BlogListController', function ($scope, messageService, Blogs, paginationBlog) {
 
     $scope.paginationBlog = paginationBlog;
 
     $scope.selectPage = function (pageNow) {
-        $scope.paginationBlog = Blogs.paginationQuery({username: BLOG_USERNAME, page: pageNow});
+        $scope.paginationBlog = Blogs.paginationQuery({page: pageNow});
     };
 
 }).controller('BlogDetailController', function ($scope, $location, messageService, Blogs, blog) {
@@ -37,7 +37,7 @@ blog.controller('BlogListController', function ($scope, messageService, BLOG_USE
     $scope.blog = blog;
 
     $scope.createBlog = function (blog) {
-        blog.$update(function (dbBlog) {
+        blog.$save(function (dbBlog) {
             messageService.showSuccessMessage("保存成功");
             $location.path('blogs/' + blog.id);
         });
