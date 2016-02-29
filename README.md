@@ -16,7 +16,7 @@ CI/CD : Gitlab CI + Docker
 ---
 
 ### 博客地址
-[www.bianchunguang.com](www.bianchunguang.com)
+[www.bianchunguang.com](http://www.bianchunguang.com)
 
 ---
 
