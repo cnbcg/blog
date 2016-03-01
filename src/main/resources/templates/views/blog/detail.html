@@ -1,5 +1,5 @@
 <div class="row">
-    <div class="col-md-9">
+    <div class="col-md-12">
         <blog blog="blog" edit="edit(blog)" delete="delete(blog)">正在加载数据...</blog>
 
         <div class="commentWrapper" ng-controller="BlogCommentController">
@@ -26,30 +26,6 @@
                     </div>
                 </div>
             </form>
-        </div>
-    </div>
-
-    <div class="col-md-3">
-        <div class="sidebar" ng-cloak="" ng-show="authenticationService.isAuthenticated()">
-            <div class="sidebar-title">文章推荐</div>
-            <div class="sidebar-content">
-                <div class="sidebar-menu">
-                    <a class="sidebar-menu-item" href="#" ng-click="edit(blog)">评论文章</a>
-                    <a class="sidebar-menu-item" href="#" ng-click="edit(blog)">编辑文章</a>
-                    <a class="sidebar-menu-item" href="#" ng-click="delete(blog)">删除文章</a>
-                    <a class="sidebar-menu-item" href="blogs/new">新建文章</a>
-                </div>
-            </div>
-        </div>
-        <div class="sidebar" ng-cloak="" ng-show="authenticationService.isAuthenticated()">
-            <div class="sidebar-title">操作</div>
-            <div class="sidebar-content">
-                <div class="sidebar-menu">
-                    <a class="sidebar-menu-item" href="#" ng-click="edit(blog)">编辑文章</a>
-                    <a class="sidebar-menu-item" href="#" ng-click="delete(blog)">删除文章</a>
-                    <a class="sidebar-menu-item" href="blogs/new">新建文章</a>
-                </div>
-            </div>
         </div>
     </div>
 </div>

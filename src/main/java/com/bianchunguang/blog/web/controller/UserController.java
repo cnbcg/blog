@@ -43,6 +43,7 @@ public class UserController extends BaseController {
         user.setRoles(Arrays.asList(roleService.findByCode(userService.count() == 0 ? Constants.Role.ADMIN : Constants.Role.USER)));
 
         Map<String, Object> mailContentVariablesMap = new HashMap<>();
+        mailContentVariablesMap.put("email", user.getEmail());
         mailContentVariablesMap.put("activateUrl", StringUtils.getRootUrl(request) + "activate/" + user.getActivateCode());
 
         Assert.isTrue(emailSender.sendEmail("[BCG BLOG] User Activation", user.getEmail(), "mail/register_active_token", mailContentVariablesMap), "账户激活邮件发送失败，请确认邮箱重试。");

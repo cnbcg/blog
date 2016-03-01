@@ -28,6 +28,11 @@ var user = angular.module('user', [])
                     }
                 }
             })
+            .when('/profile', {
+                templateUrl: 'views-user-profile',
+                controller: 'UserProfileController',
+                authority: 'auth',
+            })
             .when('/404', {
                 templateUrl: 'views-errors-404'
             });

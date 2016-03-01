@@ -83,7 +83,7 @@ var app = angular.module('app', ['ngResource', 'ngRoute', 'ng-showdown', 'blog',
             },
             responseError: function (response) {
                 NProgress.done();
-                messageService.showErrorMessage(response.data.message);
+                messageService.showErrorMessage(response.data.message ? response.data.message : JSON.parse(response.data).message);
                 return $q.reject(response);
             }
         };

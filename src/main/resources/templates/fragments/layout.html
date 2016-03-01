@@ -37,17 +37,24 @@
 
             <div class="collapse navbar-collapse" id="navbar-headbar">
                 <ul class="nav navbar-nav">
-                    <li class="{{path == '/blogs' ? 'active' : ''}}"><a href="blogs"
-                                                                        th:text="#{nav.headbar.blog}">博客</a></li>
+                    <li class="{{path == '/blogs' ? 'active' : ''}}"><a href="blogs" th:text="#{nav.headbar.blog}">博客</a></li>
                     <li class="hidden {{path == '/album' ? 'active' : ''}}"><a th:text="#{nav.headbar.album}">相册</a></li>
-                    <li class="{{path == '/about' ? 'active' : ''}}"><a href="" th:text="#{nav.headbar.about}">关于</a>
-                    </li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li th:class="${locale == 'zh_CN' ? 'active' : ''}" ng-click="changeUI('locale', 'zh_CN')"><a href="#">中文</a></li>
-                    <li th:class="${locale == 'en_US' ? 'active' : ''}" ng-click="changeUI('locale', 'en_US')"><a href="#">English</a></li>
-                    <li th:class="${theme == 'horizontal' ? 'active' : ''}" ng-click="changeUI('theme', 'horizontal')"><a href="#" th:text="#{nav.headbar.theme.pc}">桌面版</a></li>
-                    <li th:class="${theme == 'vertical' ? 'active' : ''}" ng-click="changeUI('theme', 'vertical')"><a href="#" th:text="#{nav.headbar.theme.mobile}">移动版</a></li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">语言<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li th:class="${locale == 'zh_CN' ? 'active' : ''}" ng-click="changeUI('locale', 'zh_CN')"><a href="#">中文</a></li>
+                            <li th:class="${locale == 'en_US' ? 'active' : ''}" ng-click="changeUI('locale', 'en_US')"><a href="#">English</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">主题<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li th:class="${theme == 'horizontal' ? 'active' : ''}" ng-click="changeUI('theme', 'horizontal')"><a href="#" th:text="#{nav.headbar.theme.pc}">桌面版</a></li>
+                            <li th:class="${theme == 'vertical' ? 'active' : ''}" ng-click="changeUI('theme', 'vertical')"><a href="#" th:text="#{nav.headbar.theme.mobile}">移动版</a></li>
+                        </ul>
+                    </li>
                     <li class="{{path == '/login' ? 'active' : ''}}" ng-show="!authenticationService.isAuthenticated()"><a href="login" th:text="#{nav.headbar.login}">登录</a></li>
                     <li class="{{path == '/register' ? 'active' : ''}}" ng-show="!authenticationService.isAuthenticated()"><a href="register" th:text="#{nav.headbar.register}">注册</a></li>
                     <li ng-cloak="" ng-show="authenticationService.isAuthenticated()" class="dropdown">
@@ -90,11 +97,9 @@
                     </div>
                 </div>
                 <div class="col-sm-4 footer-menu">
-                    <div class="footer-menu-title">QQ 群</div>
+                    <div class="footer-menu-title">微信二维码</div>
                     <div class="footer-menu-body">
-                        <div class="footer-menu-item">Spark/ELK/Flume群: 1234567</div>
-                        <div class="footer-menu-item">Docker/k8s/linux群: 23423423</div>
-                        <div class="footer-menu-item">Spring/Boot/Shrio/CAS群: 45645645</div>
+                        <img class="sidebar-profile-avatar" th:src="@{images/wechat.jpg}" style="height: 100px;"/>
                     </div>
                 </div>
             </div>
@@ -108,7 +113,7 @@
         <div class="sidebar-title">个人资料</div>
         <div class="sidebar-content">
             <div class="sidebar-profile">
-                <img class="sidebar-profile-avatar" th:src="@{/images/avatar.jpg}"/>
+                <img class="sidebar-profile-avatar" th:src="@{http://image.hiapk.com/pic/2011/12/23/and_pbpic_gaoqingbizh_20111223_1.jpg}"/>
                 <div class="sidebar-profile-name">bcg</div>
                 <div class="sidebar-profile-desc">码农一枚，身在大连，专注于高可用及大数据方向，现就职于BCG集团，担任技术总监。</div>
             </div>
@@ -119,7 +124,7 @@
         <div class="sidebar-content">
             <div class="sidebar-menu">
                 <a class="sidebar-menu-item" href="blogs/new" th:text="#{nav.sidebar.newblog}">写博客</a>
-                <a class="sidebar-menu-item" href="{{authenticationService.authUser().username}}/management">后台管理</a>
+                <a class="sidebar-menu-item hidden" href="{{authenticationService.authUser().username}}/management">后台管理</a>
                 <a class="sidebar-menu-item hidden" th:text="#{nav.sidebar.newalbum}">新建相册</a>
             </div>
         </div>

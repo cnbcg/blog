@@ -1,3 +1,27 @@
+<div style="background-color:#d0d0d0;background-image:url(http://weixin.qq.com/zh_CN/htmledition/images/weixin/letter/mmsgletter_2_bg.png);text-align:center;padding:40px;">
+    <div class="mmsgLetter" style="width:580px;margin:0 auto;padding:10px;color:#333;background-color:#fff;border:0px solid #aaa;border-radius:5px;-webkit-box-shadow:3px 3px 10px #999;-moz-box-shadow:3px 3px 10px #999;box-shadow:3px 3px 10px #999;font-family:Verdana, sans-serif; ">
 
-<h4>注册成功，请点击或复制以下链接以激活账号</h4>
-<a th:href="${activateUrl}" th:text="${activateUrl}"></a>
+        <div class="mmsgLetterHeader" style="height:11px;background:url(http://weixin.qq.com/zh_CN/htmledition/images/weixin/letter/mmsgletter_2_bg_topline.png) repeat-x 0 0;">
+
+        </div>
+        <div class="mmsgLetterContent" style="text-align:left;padding:30px;font-size:14px;line-height:1.5;">
+
+            <div>
+
+                <p>你好!</p>
+                <p>
+                    感谢你注册BCG BLOG。 <br />
+                    你的登录邮箱为：<span th:text="${email}"></span>。请点击以下链接激活帐号：
+                </p>
+                <p style="word-wrap:break-word;word-break:break-all;">
+                    <a th:href="${activateUrl}" th:text="${activateUrl}" target="_blank"></a>
+                </p>
+                <p>
+                    如果以上链接无法点击，请将上面的地址复制到你的浏览器的地址栏以激活账号。
+                </p>
+
+            </div>
+        </div>
+    </div>
+
+</div>

@@ -61,6 +61,19 @@ a:focus, a:hover {
     color: #0cc;
 }
 
+.dropdown-menu {
+    border-radius : 0px;
+    border: none;
+    box-shadow: 0px 2px 15px #555;
+}
+
+.dropdown-menu>.active>a, .dropdown-menu>.active>a:focus, .dropdown-menu>.active>a:hover {
+    color: #fff;
+    text-decoration: none;
+    background-color: #0cc;
+    outline: 0;
+}
+
 .sidebar {
     background: #222;
     color: #aaa;
@@ -76,7 +89,6 @@ a:focus, a:hover {
 
 .sidebar .sidebar-profile-avatar {
     width: 100%;
-    height: 200px;
     margin-bottom: 10px;
 }
 

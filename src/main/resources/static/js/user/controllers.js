@@ -14,4 +14,7 @@ user.controller('UserLoginController', function ($scope) {
 
 }).controller('UserActivateController', function ($scope, user) {
     $scope.activateUser = user;
+
+}).controller('UserProfileController', function ($scope, authenticationService) {
+    $scope.authUser = authenticationService.authUser();;
 });
