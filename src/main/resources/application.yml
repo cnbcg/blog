@@ -9,7 +9,7 @@ spring:
   profiles:
     active: production
   datasource:
-    url: jdbc:mysql://rdsx5z67702g71h62p2k.mysql.rds.aliyuncs.com
+    url: jdbc:mysql://rdsx5z67702g71h62p2k.mysql.rds.aliyuncs.com/blog
     username: bcg
     password: BCG8_7
     driver-class-name: com.mysql.jdbc.Driver
