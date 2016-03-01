@@ -1,4 +1,4 @@
-# BCG Blog
+# BCG BLOG
 
 ### 技术栈
 后台 ： Spring Boot 1.3 + JPA 2.1
