@@ -2,6 +2,7 @@ package com.bianchunguang.blog.web.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
+import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
@@ -42,13 +43,13 @@ public class BaseController {
         return modelThreadLocal.get();
     }
 
-    public <T> T messageResponseEntity(Object message, HttpStatus httpStatus) {
-        return (T) new ResponseEntity("{\"message\": \"" + message + "\"}", httpStatus);
+    public  ResponseEntity<String> messageResponseEntity(String message, HttpStatus httpStatus) {
+        return new ResponseEntity<>("{\"message\": \"" + message + "\"}", httpStatus);
     }
 
     public static void assertErrorIsNull(BindingResult result) {
         if (result.getErrorCount() > 0) {
-            String message = result.getAllErrors().stream().map(error -> error.getDefaultMessage()).reduce((error1, error2) -> error1 + "、" + error2).get();
+            String message = result.getAllErrors().stream().map(DefaultMessageSourceResolvable::getDefaultMessage).reduce((error1, error2) -> error1 + "、" + error2).get();
             throw new IllegalArgumentException(message);
         }
     }
