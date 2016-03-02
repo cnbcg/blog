@@ -4,7 +4,7 @@
     <base href="/"/>
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
 
     <link rel="stylesheet" th:href="@{/lib/bootstrap-3.3.5-dist/css/bootstrap.min.css}"/>
     <link rel="stylesheet" th:href="@{/lib/nprogress/nprogress.css}"/>
@@ -42,14 +42,14 @@
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">语言<span class="caret"></span></a>
+                        <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span th:text="#{nav.headbar.lang}">语言</span><span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li th:class="${locale == 'zh_CN' ? 'active' : ''}" ng-click="changeUI('locale', 'zh_CN')"><a href="#">中文</a></li>
                             <li th:class="${locale == 'en_US' ? 'active' : ''}" ng-click="changeUI('locale', 'en_US')"><a href="#">English</a></li>
                         </ul>
                     </li>
                     <li class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">主题<span class="caret"></span></a>
+                        <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span th:text="#{nav.headbar.theme}">主题</span><span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li th:class="${theme == 'horizontal' ? 'active' : ''}" ng-click="changeUI('theme', 'horizontal')"><a href="#" th:text="#{nav.headbar.theme.pc}">桌面版</a></li>
                             <li th:class="${theme == 'vertical' ? 'active' : ''}" ng-click="changeUI('theme', 'vertical')"><a href="#" th:text="#{nav.headbar.theme.mobile}">移动版</a></li>
@@ -110,12 +110,12 @@
 
 <div th:fragment="fragment-sidebar">
     <div class="sidebar">
-        <div class="sidebar-title">个人资料</div>
+        <div class="sidebar-title" th:text="#{user.profile}">个人资料</div>
         <div class="sidebar-content">
             <div class="sidebar-profile">
                 <img class="sidebar-profile-avatar" th:src="@{http://image.hiapk.com/pic/2011/12/23/and_pbpic_gaoqingbizh_20111223_1.jpg}"/>
                 <div class="sidebar-profile-name">bcg</div>
-                <div class="sidebar-profile-desc">码农一枚，身在大连，专注于高可用及大数据方向，现就职于BCG集团，担任技术总监。</div>
+                <div class="sidebar-profile-desc">码农一枚，身在大连，现专注于高可用及大数据方向。</div>
             </div>
         </div>
     </div>

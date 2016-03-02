@@ -3,7 +3,7 @@
         <blog blog="blog" edit="edit(blog)" delete="delete(blog)">正在加载数据...</blog>
 
         <div class="commentWrapper" ng-controller="BlogCommentController">
-            <div class="title"><span class="glyphicon glyphicon-comment" aria-hidden="true"></span> Comments</div>
+            <div class="title"><span class="glyphicon glyphicon-comment" aria-hidden="true"></span> <span th:text="#{common.comment}">Comments</span></div>
 
             <comment comment="blogComment" reply="reply(comment)" delete="delete(blog, comment)" ng-repeat="blogComment in paginationBlogComments.content"></comment>
             <pagination page-now="paginationBlogComments.number" page-count="paginationBlogComments.totalPages" select-page="selectPage(pageNow)"></pagination>

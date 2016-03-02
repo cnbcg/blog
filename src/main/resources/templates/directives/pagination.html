@@ -1,6 +1,6 @@
 <nav>
     <ul class="pager">
-        <li ng-class="{previous : true, disabled : isFirst()}"><a class="btn" href="#" ng-disabled="isFirst()" ng-click="previous()"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> Previous</a></li>
-        <li ng-class="{next : true, disabled : isLast()}"><a class="btn" href="#" ng-disabled="isLast()" ng-click="next()">Next <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a></li>
+        <li ng-class="{previous : true, disabled : isFirst()}"><a class="btn" href="#" ng-disabled="isFirst()" ng-click="previous()"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> <span th:text="#{pagination.previous}">Previous</span></a></li>
+        <li ng-class="{next : true, disabled : isLast()}"><a class="btn" href="#" ng-disabled="isLast()" ng-click="next()"><span th:text="#{pagination.next}">Next</span> <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a></li>
     </ul>
 </nav>

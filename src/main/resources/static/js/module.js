@@ -12,6 +12,10 @@ var app = angular.module('app', ['ngResource', 'ngRoute', 'ng-showdown', 'blog',
     })
     .run(function ($rootScope, $location, authenticationService, messageService) {
 
+        calFooter();
+        $(window).resize(calFooter);
+        function calFooter() {$("body").css("margin-bottom", $("footer").outerHeight())};
+
         (function breathingLights() {
             $(".navbar-brand").transition({
                 color: '#777',
