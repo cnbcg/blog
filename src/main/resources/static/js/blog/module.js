@@ -3,7 +3,7 @@ var blog = angular.module('blog', [])
     .config(function ($routeProvider) {
 
         $routeProvider
-            .when('/blogs', {
+            .when('/', {
                 templateUrl: 'views-blog-list',
                 controller: 'BlogListController',
                 resolve: {

@@ -37,7 +37,7 @@
 
             <div class="collapse navbar-collapse" id="navbar-headbar">
                 <ul class="nav navbar-nav">
-                    <li class="{{path == '/blogs' ? 'active' : ''}}"><a href="blogs" th:text="#{nav.headbar.blog}">博客</a></li>
+                    <li class="{{path == '/' ? 'active' : ''}}"><a href="/" th:text="#{nav.headbar.blog}">博客</a></li>
                     <li class="hidden {{path == '/album' ? 'active' : ''}}"><a th:text="#{nav.headbar.album}">相册</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
