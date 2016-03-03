@@ -7,7 +7,7 @@ var app = angular.module('app', ['ngResource', 'ngRoute', 'ng-showdown', 'blog',
 
     }).config(function ($routeProvider) {
         $routeProvider.otherwise({
-                redirectTo: '/blogs'
+                redirectTo: '/'
             });
     })
     .run(function ($rootScope, $location, authenticationService, messageService) {
