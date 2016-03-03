@@ -12,7 +12,6 @@ import org.springframework.stereotype.Component;
 import java.util.Arrays;
 
 @Component
-@Profile({"develop"})
 public class InitApplicationRunner implements ApplicationRunner {
 
     private @Autowired RoleService roleService;
