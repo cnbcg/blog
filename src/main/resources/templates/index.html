@@ -2,7 +2,7 @@
 <html lang="zh-CN" ng-app="app" ng-controller="IndexController">
 <head>
     <title>首页 - Run to dream!BCG Blog</title>
-    <meta th:include="fragments/layout :: fragment-head" th:remove="tag"/>
+    <meta th:include="fragments/layout :: fragment-head-cdn" th:remove="tag"/>
 </head>
 <body>
 
@@ -15,7 +15,7 @@
 </div>
 
 <div th:include="fragments/layout :: fragment-footer" th:remove="tag"></div>
-<div th:include="fragments/layout :: fragment-js" th:remove="tag"></div>
+<div th:include="fragments/layout :: fragment-js-cdn" th:remove="tag"></div>
 
 </body>
 </html>

@@ -30,6 +30,36 @@
     </script>
 
 </head>
+<head th:fragment="fragment-head-cdn">
+    <base href="/"/>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+
+    <link rel="stylesheet" th:href="@{//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" th:href="@{//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.css}"/>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+    <link rel="stylesheet" th:href="@{/css/blog.css}"/>
+    <link rel="stylesheet" th:href="${#themes.code('css')}"/>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script th:src="@{//cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js}"></script>
+    <script th:src="@{//cdn.bootcss.com/respond.js/1.4.2/respond.min.js}"></script>
+    <![endif]-->
+
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "//hm.baidu.com/hm.js?8525c278c553d245eb8a88717e86ce4e";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+</head>
 <body>
 <div th:fragment="fragment-navbar-headbar">
     <nav class="navbar navbar-inverse navbar-headbar">
@@ -139,6 +169,34 @@
             </div>
         </div>
     </div>
+</div>
+
+
+
+<div th:fragment="fragment-js-cdn">
+    <script th:src="@{//cdn.bootcss.com/jquery/2.2.1/jquery.min.js}"></script>
+    <script th:src="@{//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.js}"></script>
+    <script th:src="@{//cdn.bootcss.com/jquery.transit/0.9.12/jquery.transit.min.js}"></script>
+    <script th:src="@{//cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js}"></script>
+    <script th:src="@{//cdn.bootcss.com/angular.js/1.4.8/angular.min.js}"></script>
+    <script th:src="@{//cdn.bootcss.com/angular.js/1.4.8/angular-resource.min.js}"></script>
+    <script th:src="@{//cdn.bootcss.com/angular.js/1.4.8/angular-route.min.js}"></script>
+    <script th:src="@{//cdn.bootcss.com/angular.js/1.4.8/angular-sanitize.min.js}"></script>
+    <script th:src="@{//cdn.bootcss.com/showdown/1.3.0/showdown.min.js}"></script>
+    <script th:src="@{//cdn.bootcss.com/ng-showdown/1.1.0/ng-showdown.min.js}"></script>
+    <script th:src="@{/js/module.js}"></script>
+    <script th:src="@{/js/controllers.js}"></script>
+    <script th:src="@{/js/services.js}"></script>
+    <script th:src="@{/js/directives.js}"></script>
+    <script th:src="@{/js/blog/module.js}"></script>
+    <script th:src="@{/js/blog/services.js}"></script>
+    <script th:src="@{/js/blog/controllers.js}"></script>
+    <script th:src="@{/js/blog/directives.js}"></script>
+    <script th:src="@{/js/user/module.js}"></script>
+    <script th:src="@{/js/user/controllers.js}"></script>
+    <script th:src="@{/js/user/services.js}"></script>
+    <script th:src="@{/js/admin/module.js}"></script>
+    <script th:src="@{/js/admin/controllers.js}"></script>
 </div>
 
 <div th:fragment="fragment-js">
