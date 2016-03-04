@@ -1,7 +1,10 @@
+#blogListContainer .blog {
+    padding: 2% 0px;
+    border-bottom: 1px solid #eee;
+}
+
 .blog {
-    margin-bottom: 20px;
-    padding: 2%;
-    background: #f5f5f5;
+    padding-bottom: 2%;
 }
 
 .blog .blog--head {
