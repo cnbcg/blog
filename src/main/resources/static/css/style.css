@@ -226,6 +226,7 @@ form[name="loginForm"], form[name="registerForm"] {
 
 #nprogress .bar {
     background: #f80;
+    height: 3px;
 }
 
 #nprogress .peg {
