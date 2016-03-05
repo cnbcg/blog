@@ -89,22 +89,24 @@ var app = angular.module('app', ['ngResource', 'ngRoute', 'ng-showdown', 'blog',
             $(this).find("pre").each(function (index, element) {
                 if ($(element).parents(".CodeMirror").length == 0) {
 
-                    var code = $(element).text();
-                    var codeType = "";
-                    if (code.substr(0, 1) == '[') {
-                        codeType = code.substr(1, code.indexOf("]") - 1);
-                        code = code.substr(code.indexOf("]") + 1);
-                    }
+                    if (element.parentNode) {
+                        var code = $(element).text();
+                        var codeType = "";
+                        if (code.substr(0, 1) == '[') {
+                            codeType = code.substr(1, code.indexOf("]") - 1);
+                            code = code.substr(code.indexOf("]") + 1);
+                        }
 
-                    var cm = CodeMirror(function (elt) {
-                        element.parentNode.replaceChild(elt, element);
-                    }, {
-                        value: code, mode: codeType, theme: "mbo",
-                        lineNumbers: true,
-                        readOnly: 'nocursor'
-                    });
-                    cm.setSize('auto', 'auto');
-                    codeMirroArray.push(cm);
+                        var cm = CodeMirror(function (elt) {
+                            element.parentNode.replaceChild(elt, element);
+                        }, {
+                            value: code, mode: codeType, theme: "mbo",
+                            lineNumbers: true,
+                            readOnly: 'nocursor'
+                        });
+                        cm.setSize('auto', 'auto');
+                        codeMirroArray.push(cm);
+                    }
                 }
             });
 
