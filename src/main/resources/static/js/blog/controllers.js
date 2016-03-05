@@ -21,25 +21,13 @@ blog.controller('BlogListController', function ($scope, messageService, Blogs, p
         });
     };
 
-}).controller('BlogNewController', function ($scope, $location, Blogs, messageService) {
-
-    $scope.blog = {author: {nickname: "test"}, createdDate: new Date(), content: "", commentCount: 0, viewCount: 0};
+}).controller('BlogEditController', function ($scope, $location, messageService, Blogs, blog) {
+    $scope.blog = blog;
 
     $scope.createBlog = function (blog) {
         Blogs.save(blog, function (dbBlog) {
             messageService.showSuccessMessage("保存成功");
-            $location.path('blogs');
-        });
-    };
-
-}).controller('BlogEditController', function ($scope, $location, messageService, blog) {
-
-    $scope.blog = blog;
-
-    $scope.createBlog = function (blog) {
-        blog.$save(function (dbBlog) {
-            messageService.showSuccessMessage("保存成功");
-            $location.path('blogs/' + blog.id);
+            $location.path('blogs/' + dbBlog.id);
         });
     };
 

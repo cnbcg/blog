@@ -4,6 +4,7 @@ var admin = angular.module('admin', [])
 
         $routeProvider
             .when("/:username/management", {
+                htmlTitle: '后台管理',
                 templateUrl: 'views-admin-management',
                 controller: 'ManagementController',
                 authority: 'auth',

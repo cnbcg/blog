@@ -7,14 +7,16 @@ var app = angular.module('app', ['ngResource', 'ngRoute', 'ng-showdown', 'blog',
 
     }).config(function ($routeProvider) {
         $routeProvider.otherwise({
-                redirectTo: '/'
-            });
+            redirectTo: '/'
+        });
     })
     .run(function ($rootScope, $location, authenticationService, messageService) {
 
         calFooter();
         $(window).resize(calFooter);
-        function calFooter() {$("body").css("margin-bottom", $("footer").outerHeight())};
+        function calFooter() {
+            $("body").css("margin-bottom", $("footer").outerHeight())
+        };
 
         (function breathingLights() {
             $(".navbar-brand").transition({
@@ -50,11 +52,12 @@ var app = angular.module('app', ['ngResource', 'ngRoute', 'ng-showdown', 'blog',
                 placement: 'bottom'
             });
             $(this).tooltip('show');
-
         });
 
+        var codeMirroArray = [];
         $rootScope.$on('$routeChangeStart', function (event, next, current) {
             var authority = next.$$route ? next.$$route.authority : null;
+            codeMirroArray = [];
 
             if (authority && authority === 'auth' && !authenticationService.isAuthenticated()) {
                 messageService.showErrorMessage("权限不足，请登录");
@@ -68,11 +71,43 @@ var app = angular.module('app', ['ngResource', 'ngRoute', 'ng-showdown', 'blog',
         $rootScope.$on('$routeChangeSuccess', function (event, next, current) {
             next.$$route && ($rootScope.path = next.$$route.originalPath);
 
+            if (next.$$route && next.$$route.htmlTitle) {
+                $rootScope.title = next.$$route.htmlTitle;
+            }
+
             $("#mainWrapper").stop(false, true)
                 .css({opacity: 0, x: -400, rotateY: '-75deg'})
                 .transition({opacity: 1, x: 0, rotateY: '0deg'}, function () {
                     $("#mainWrapper").removeAttr("style");
+                    $.each(codeMirroArray, function (index, cm) {
+                        cm.refresh();
+                    });
                 });
+        });
+
+        $("#mainWrapper").bind("DOMSubtreeModified", function () {
+            $(this).find("pre").each(function (index, element) {
+                if ($(element).parents(".CodeMirror").length == 0) {
+
+                    var code = $(element).text();
+                    var codeType = "";
+                    if (code.substr(0, 1) == '[') {
+                        codeType = code.substr(1, code.indexOf("]") - 1);
+                        code = code.substr(code.indexOf("]") + 1);
+                    }
+
+                    var cm = CodeMirror(function (elt) {
+                        element.parentNode.replaceChild(elt, element);
+                    }, {
+                        value: code, mode: codeType, theme: "mbo",
+                        lineNumbers: true,
+                        readOnly: 'nocursor'
+                    });
+                    cm.setSize('auto', 'auto');
+                    codeMirroArray.push(cm);
+                }
+            });
+
         });
 
     }).factory('progressInterceptor', function ($q, messageService) {

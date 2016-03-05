@@ -9,7 +9,7 @@ body {
     word-break: break-all;
 }
 
-*:not(#mainWrapper) {
+*:not(#mainWrapper):not(.CodeMirror *) {
     transition: all 0.2s ease-in;
 }
 

@@ -4,14 +4,17 @@ var user = angular.module('user', [])
 
         $routeProvider
             .when('/login', {
+                htmlTitle: '用户登录',
                 templateUrl: 'views-user-login',
                 controller: 'UserLoginController'
             })
             .when('/register', {
+                htmlTitle: '用户注册',
                 templateUrl: 'views-user-register',
                 controller: 'UserRegisterController'
             })
             .when('/activate/:activateCode', {
+                htmlTitle: '用户激活',
                 templateUrl: 'views-user-activate',
                 controller: 'UserActivateController',
                 resolve: {
@@ -29,6 +32,7 @@ var user = angular.module('user', [])
                 }
             })
             .when('/profile', {
+                htmlTitle: '用户资料',
                 templateUrl: 'views-user-profile',
                 controller: 'UserProfileController',
                 authority: 'auth',
