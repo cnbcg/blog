@@ -87,26 +87,23 @@ var app = angular.module('app', ['ngResource', 'ngRoute', 'ng-showdown', 'blog',
 
         $("#mainWrapper").bind("DOMSubtreeModified", function () {
             $(this).find("pre").each(function (index, element) {
-                if ($(element).parents(".CodeMirror").length == 0) {
+                if ($(element).parents(".CodeMirror").length == 0 && element.parentNode) {
+                    var codeType, code = $(element).text().trim();
 
-                    if (element.parentNode) {
-                        var code = $(element).text();
-                        var codeType = "";
-                        if (code.substr(0, 1) == '[') {
-                            codeType = code.substr(1, code.indexOf("]") - 1);
-                            code = code.substr(code.indexOf("]") + 1, code.length  - 14);
-                        }
-
-                        var cm = CodeMirror(function (elt) {
-                            element.parentNode.replaceChild(elt, element);
-                        }, {
-                            value: code, mode: codeType, theme: "mbo",
-                            lineNumbers: true,
-                            readOnly: 'nocursor'
-                        });
-                        cm.setSize('auto', 'auto');
-                        codeMirroArray.push(cm);
+                    if (code.substr(0, 1) == '[') {
+                        codeType = code.substr(1, code.indexOf("]") - 1);
+                        code = code.substr(code.indexOf("]") + 1);
                     }
+
+                    var cm = CodeMirror(function (elt) {
+                        element.parentNode.replaceChild(elt, element);
+                    }, {
+                        value: code, mode: codeType, theme: "mbo",
+                        lineNumbers: true,
+                        readOnly: 'nocursor'
+                    });
+                    cm.setSize('auto', 'auto');
+                    codeMirroArray.push(cm);
                 }
             });
 

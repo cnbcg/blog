@@ -237,3 +237,7 @@ form[name="loginForm"], form[name="registerForm"] {
     border-top-color: #f80;
     border-left-color: #f80;
 }
+
+.CodeMirror {
+    margin-bottom: 10px;
+}
