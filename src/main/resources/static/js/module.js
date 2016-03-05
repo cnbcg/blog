@@ -94,7 +94,7 @@ var app = angular.module('app', ['ngResource', 'ngRoute', 'ng-showdown', 'blog',
                         var codeType = "";
                         if (code.substr(0, 1) == '[') {
                             codeType = code.substr(1, code.indexOf("]") - 1);
-                            code = code.substr(code.indexOf("]") + 1);
+                            code = code.substr(code.indexOf("]") + 1, code.length  - 14);
                         }
 
                         var cm = CodeMirror(function (elt) {
