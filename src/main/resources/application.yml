@@ -14,6 +14,8 @@ spring:
     username: blog
     password: blog
     driver-class-name: com.mysql.jdbc.Driver
+    testOnBorrow: true
+    validationQuery: SELECT 1
   jpa:
     hibernate:
       ddl-auto: update
