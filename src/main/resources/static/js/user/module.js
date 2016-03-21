@@ -18,12 +18,12 @@ var user = angular.module('user', [])
                 templateUrl: 'views-user-activate',
                 controller: 'UserActivateController',
                 resolve: {
-                    user : function($route, $http, $q) {
+                    user: function ($route, $http, $q) {
                         var defer = $q.defer();
-                        $http.put('users/activate/' + $route.current.params.activateCode).success(function(data){
+                        $http.put('users/activate/' + $route.current.params.activateCode).success(function (data) {
                             defer.resolve(data);
 
-                        }).error(function(data){
+                        }).error(function (data) {
                             defer.resolve(null);
                         });
 
@@ -37,7 +37,17 @@ var user = angular.module('user', [])
                 controller: 'UserProfileController',
                 authority: 'auth',
             })
-            .when('/404', {
-                templateUrl: 'views-errors-404'
+            .when('/oauth/authorize', {
+                htmlTitle: '授权',
+                templateUrl: function ($routeParams) {
+                    var templateUrl = '/oauth/authorize?';
+
+                    for (var key in $routeParams) {
+                        templateUrl += '&' + key + "=" + $routeParams[key];
+                    }
+
+                    return templateUrl;
+                },
+                authority: 'auth'
             });
     });

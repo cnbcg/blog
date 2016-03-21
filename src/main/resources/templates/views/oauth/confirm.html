@@ -1,0 +1,24 @@
+<div class="content-title">
+    <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span> OAuth 授权
+</div>
+
+<p>Do you authorize '<span th:text="${session.authorizationRequest.clientId}"></span>' to access your protected
+    resources?</p>
+<form id='confirmationForm' name='confirmationForm' action='/oauth/authorize' method='post'>
+    <input name='user_oauth_approval' value='true' type='hidden'/>
+    <input th:if="${_csrf != null}" type='hidden' name='${_csrf.parameterName}' value='${_csrf.token}'/>
+    <ul th:if="${scopes != null}">
+        <li th:each="scope : ${scopes}">
+            <div class='form-group'>
+                <span th:text="${scope.key}"></span>: <label><input type='radio' th:attr="name=${scope}" value='true' th:checked="${scope.value}">Approve</input></label> <label><input type='radio' th:attr="name=${scope}" value='false' th:checked="${!scope.value}">Deny</input></label>
+            </div>
+        </li>
+    </ul>
+    <button class="btn btn-default" name='authorize' value='Authorize' type='submit'>授权</button>
+</form>
+
+<form th:if="${scopes == null}" id='denialForm' name='denialForm' action='${path}/oauth/authorize' method='post'>
+    <input name='user_oauth_approval' value='false' type='hidden'/>
+    <input th:if="${_csrf != null}" type='hidden' name='${_csrf.parameterName}' value='${_csrf.token}'/>
+    <label><input classs="btn btn-default" name='deny' value='Deny' type='submit'/></label>
+</form>

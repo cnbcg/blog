@@ -12,7 +12,7 @@ user.factory('authenticationService', function ($http, $window, $location, messa
             $http.post('/login?' + $.param(credentials)).success(function (user) {
                 (authUser = user) && ($window.sessionStorage["authUser"] = JSON.stringify(user));
                 successCallback && successCallback(authUser);
-                $location.path(rememberedRequest) && (rememberedRequest = LOGIN_DEFAULT_PATH);
+                $location.url(rememberedRequest) && (rememberedRequest = LOGIN_DEFAULT_PATH);
 
             }).error(function (error) {
                 errorCallback && errorCallback(error);

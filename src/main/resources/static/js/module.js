@@ -6,9 +6,10 @@ var app = angular.module('app', ['ngResource', 'ngRoute', 'ng-showdown', 'blog',
         $httpProvider.interceptors.push('progressInterceptor');
 
     }).config(function ($routeProvider) {
-        $routeProvider.otherwise({
-            redirectTo: '/'
-        });
+        $routeProvider
+            .when('/404', {
+                templateUrl: 'views-errors-404'
+            });
     })
     .run(function ($rootScope, $location, authenticationService, messageService) {
 
